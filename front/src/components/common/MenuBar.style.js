@@ -36,10 +36,10 @@ export const MenuButton = styled.div`
     flex-shrink: 0;
     border-radius: 2rem;
     transition: background-color 0.3s ease;
-    background: ${({ isPick }) =>
-      isPick ? "rgba(255, 255, 255, 0.3)" : "rgba(255,255,255,0)"};
+    background: ${({ $isPick }) =>
+      $isPick ? "rgba(255, 255, 255, 0.3)" : "rgba(255,255,255,0)"};
     cursor: pointer;
-    font-weight: ${({ isPick }) => (isPick ? "600" : "400")};
+    font-weight: ${({ $isPick }) => ($isPick ? "600" : "400")};
     font-size: 0.9375rem;
     &:hover {
       background: rgba(255, 255, 255, 0.3);
