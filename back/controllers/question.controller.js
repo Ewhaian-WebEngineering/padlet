@@ -172,3 +172,38 @@ export const deleteQuestion=async(req,res)=>{
         res.status(500).json({success:false})
     }
 }
+
+/**
+ * @swagger
+ * /api/question/{id}:
+ *   get:
+ *     summary: 특정 질문 조회
+ *     tags: [Questions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: 조회 성공
+ *       404:
+ *         description: 존재하지 않음
+ *       500:
+ *         description: 서버 오류
+ */
+
+export const getQuestion=async(req,res)=>{
+    try{
+        const {id}=req.params;
+
+        const doc=await Question.findById(id);
+        if(!doc)
+            return res.status(404).json({success:false})
+        //question으로 찾은걸 넘겨줌
+        res.status(200).json({success:true,question:doc});
+    }catch(err){
+        res.status(500).json({success:false})
+    }
+}
