@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import QnaPage from "./pages/qnaPage/QnaPage";
 
 function App() {
-
   return (
-    <div>
-      이화이언 padlet 개발
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route path="/qna" element={<QnaPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
