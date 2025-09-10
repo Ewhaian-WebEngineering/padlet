@@ -3,15 +3,18 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   align-items: center;
-  position: sticky;
+  position: fixed;
   z-index: 100;
   width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
   max-width: 1440px;
   height: 7.1875rem;
   justify-content: space-between;
   flex-shrink: 0;
   margin: 0 auto;
-
+  background: var(--bg);
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
     box-sizing: border-box;
