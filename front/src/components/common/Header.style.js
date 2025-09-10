@@ -11,7 +11,7 @@ export const Container = styled.div`
   justify-content: space-between;
   flex-shrink: 0;
   margin: 0 auto;
-
+  background: var(--bg);
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 100%;
     box-sizing: border-box;
