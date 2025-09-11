@@ -8,7 +8,7 @@ export default function Header({pickMenu, username, isLogin }) {
   return (
     <S.Container>
       <S.LeftContainer>
-        <S.Logo src={logo} alt="logo" />
+        <S.Logo src={logo} alt="logo" onClick={() => window.location.reload()} />
         <S.MenuContainer>
           <Button buttonName={"행사소개"} isPick={pickMenu == 0} />
           <Button buttonName={"실시간QNA"} isPick={pickMenu == 1} />
