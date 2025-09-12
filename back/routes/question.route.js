@@ -2,7 +2,11 @@ import express from "express";
 import { postQuestion,editQuestion,deleteQuestion,getQuestion} from "../controllers/question.controller.js";
 import { requireAuth } from "../middleware/auth.js";
 
-const router=express.Router();
+const router = express.Router();
+
+router.options("/", (req, res) => {
+  res.sendStatus(204);
+});
 
 //등록
 router.post("/",requireAuth,postQuestion);
