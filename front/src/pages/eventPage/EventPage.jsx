@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./IntroPage.style";
+import * as S from "./EventPage.style";
 
 import Header from "../../components/common/Header";
 import MenuBar from "../../components/common/MenuBar";
@@ -8,6 +8,8 @@ import logo from "../../assets/common/logo.svg";
 import logo2 from "../../assets/common/logo2.svg";
 import logo3 from "../../assets/common/logo3.svg";
 import logoDott from "../../assets/common/logoDott.png";
+import eventInfo from "../../data/eventInfo.json";
+
 function IntroPage() {
   return (
     <div>
@@ -17,7 +19,10 @@ function IntroPage() {
         <S.TitleContainer>
           <S.Logo src={logo2} alt="logo2" />
           <S.Title>
-            <h3> 이화담(談) 이란?</h3>
+            <h3>
+              {" "}
+              이화담(<span className="green">談</span>) 이란?
+            </h3>
           </S.Title>
           <S.Logo src={logo3} alt="logo3" />
         </S.TitleContainer>
@@ -33,12 +38,12 @@ function IntroPage() {
           <S.Card className="square">
             <S.CardTitle>강연 정보</S.CardTitle>
             <div className="time">
-              <h3>2025년 11월3일 18:00</h3>
-              <h3>이화여자대학교 ECC 이삼봉홀</h3>
+              <h3>{eventInfo.date}</h3>
+              <h3>{eventInfo.location}</h3>
             </div>
 
-            <h3>사전예매: 00월 00일 00시 오픈</h3>
-            <h3>현장예매: 강연일 17:30 오픈</h3>
+            <h3>사전예매: {eventInfo.preSale}</h3>
+            <h3>현장예매: {eventInfo.onsiteSale}</h3>
           </S.Card>
 
           <S.Card className="square">

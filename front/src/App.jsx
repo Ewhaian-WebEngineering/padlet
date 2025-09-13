@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import QnaPage from "./pages/qnaPage/QnaPage";
-import IntroPage from "./pages/introPage/IntroPage";
+import EventPage from "./pages/eventPage/EventPage.jsx";
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/qna" element={<QnaPage />} />
-        <Route path="/intro" element={<IntroPage />} />
+        <Route path="/event-info" element={<EventPage />} />
       </Routes>
     </Router>
   );

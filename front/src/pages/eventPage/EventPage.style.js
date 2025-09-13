@@ -8,8 +8,8 @@ export const TitleContainer = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 2.867rem;
-  height: 2.875rem;
+  width: 4rem;
+  height: 4rem;
   flex-shrink: 0;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 2rem;
@@ -18,8 +18,8 @@ export const Logo = styled.img`
   }
 `;
 export const LogoDot = styled.img`
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 0.8rem;
+  height: 0.8rem;
   flex-shrink: 0;
   display: inline-block;
   vertical-align: middle;
@@ -30,13 +30,27 @@ export const LogoDot = styled.img`
   }
 `;
 export const Title = styled.div`
-  font-size: 22px;
+  font-size: 2.4rem;
+
+  .green {
+    color: #37ff3e;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 2rem;
+  }
 `;
 
 export const Content = styled.div`
   font-size: 12px;
   margin: 2rem;
   text-align: center;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
 `;
 
 /* pc버전: 2칸+1칸, 모바일: 1열로 3칸 나열 */
@@ -51,8 +65,7 @@ export const CardContainer = styled.div`
     justify-content: center; /* 그리드 자체 중앙 */
     justify-items: stretch; /* 셀 안의 카드 중앙 */
 
-    column-gap: 3rem;
-    row-gap: 2rem;
+    column-gap: 3.5rem;
   }
 
   /* 모바일 1열로 */
@@ -68,15 +81,24 @@ export const CardContainer = styled.div`
 export const Card = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   margin-top: 1rem;
+
   border-radius: 45px;
 
   text-align: center;
   line-height: 1.6;
-  padding: 15px 20px;
+  padding: 15px 20px 40px 20px;
 
   width: 100%;
   max-width: 560px;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 6px 3px rgba(255, 255, 255, 0.15);
 
   /* pc 버전에서는  두카드& 정사각형 느낌으로 구현 */
   &.square {
@@ -97,25 +119,26 @@ export const Card = styled.div`
 
   h3 {
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
   }
   .time {
     margin-bottom: 2rem;
   }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 360px;
-    margin: 0 auto;
+  .time h3 {
+    font-size: 1.2rem;
   }
 
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5),
-    inset 0px 1px 1px rgba(255, 255, 255, 0.05);
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 300px;
+    margin: 0 auto;
+  }
 `;
 export const CardTitle = styled.h2`
-  color: #91f291;
+  color: #37ff3e;
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: 40px;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 `;
 
@@ -147,7 +170,7 @@ export const CardItem = styled.div`
   }
   p {
     margin: 0;
-    font-size: 14px;
+    font-size: 0.85rem;
     color: #ccc;
     line-height: 1.35;
   }
