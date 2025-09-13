@@ -15,6 +15,7 @@ export const Logo = styled.img`
     width: 2rem;
     height: 2rem;
     display: inline-block;
+    margin-top: 0.5rem;
   }
 `;
 export const LogoDot = styled.img`
@@ -147,6 +148,19 @@ export const CardList = styled.div`
   flex-direction: column;
   gap: 15px;
   align-items: center;
+`;
+export const CardList2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  /* pc버전에서는 같은 선상*/
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3rem;
+  }
 `;
 
 export const CardItem = styled.div`

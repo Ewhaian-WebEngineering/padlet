@@ -77,7 +77,7 @@ function IntroPage() {
 
           <S.Card className="full">
             <S.CardTitle>강연 주제</S.CardTitle>
-            <S.CardList>
+            <S.CardList2>
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" />
                 <div className="text">
@@ -93,7 +93,7 @@ function IntroPage() {
                   <p>강연 주제입니다: 강연 주제 소제목</p>
                 </div>
               </S.CardItem>
-            </S.CardList>
+            </S.CardList2>
           </S.Card>
         </S.CardContainer>
 
