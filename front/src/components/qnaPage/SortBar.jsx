@@ -1,19 +1,40 @@
 import Button from "../common/Button";
 import CategoryFilter from "../common/CategoryFilter";
 import * as S from "./SortBar.style";
+import React from 'react';
 
-export default function SortBar() {
+export default function SortBar({
+  categories,
+  visible,
+  selectedCategory,
+  onToggle,
+  onSelect,
+  onMouseEnter,
+  onMouseLeave,
+}) {
   return (
     <S.Container>
       <S.BtnContainer>
-        <CategoryFilter />
-        <S.InfoContainer2>좋아요 많이 받은 질문부터 바로 답해요!</S.InfoContainer2>
+        <CategoryFilter
+          categories={categories}
+          visible={visible}
+          selectedCategory={selectedCategory}
+          onToggle={onToggle}
+          onSelect={onSelect}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
+        <S.InfoContainer2>
+          좋아요 많이 받은 질문부터 바로 답해요!
+        </S.InfoContainer2>
         <S.SortBtnCotainer>
           <Button buttonName={"최신순"} isPick={true} />
           <Button buttonName={"좋아요순"} isPick={false} />
         </S.SortBtnCotainer>
       </S.BtnContainer>
-      <S.InfoContainer1>좋아요 많이 받은 질문부터 바로 답해요!</S.InfoContainer1>
+      <S.InfoContainer1>
+        좋아요 많이 받은 질문부터 바로 답해요!
+      </S.InfoContainer1>
     </S.Container>
   );
 }

@@ -39,6 +39,7 @@ export const Logo = styled.img`
   width: 2.867rem;
   height: 2.875rem;
   flex-shrink: 0;
+  cursor: pointer;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 1.6875rem;
     height: 1.69225rem;
