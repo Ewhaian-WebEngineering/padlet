@@ -57,5 +57,4 @@ export const InfoContainer2 = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     display: none;
   }
-
 `;
