@@ -3,15 +3,11 @@ import Question from "../models/question.model.js";
  * @swagger
  * components:
  *   schemas:
- *     Question:
+ *     QuestionRequest:
  *       type: object
  *       properties:
- *         _id:
- *           type: string
- *           description: 질문의 고유 ID (ObjectId)
- *           example: 64c1234abc1234abc1234abc
  *         title:
- *           type: string  
+ *           type: string
  *           description: 질문 제목
  *           example: "강연자1에 관한 질문"
  *         content:
@@ -22,24 +18,7 @@ import Question from "../models/question.model.js";
  *           type: string
  *           description: 카테고리
  *           example: "강연자1"
- *         author:
- *           type: string
- *           description: 작성자 User의 ObjectId (User ref)
- *           example: 64c2345bcd2345bcd2345bcd
- *         likedBy:
- *           type: array
- *           description: 좋아요를 누른 사용자 ObjectId 목록
- *           items:
- *             type: string
- *           example:
- *             - 64c3456cde3456cde3456cde
- *             - 64c4567def4567def4567def
- *         createdAt:
- *           type: string
- *           format: date-time
- *           description: 작성 시각
- *           example: "2025-09-10T09:30:00.000Z"
- *         anoymity:
+ *         anonymity:
  *           type: boolean
  *           description: 익명 여부
  *           example: true
@@ -47,8 +26,33 @@ import Question from "../models/question.model.js";
  *         - title
  *         - content
  *         - category
- *         - author
- *         - anoymity
+ *         - anonymity
+ *     QuestionResponse:
+ *       allOf:
+ *         - $ref: '#/components/schemas/QuestionRequest'
+ *         - type: object
+ *           properties:
+ *             _id:
+ *               type: string
+ *               description: 질문의 고유 ID (ObjectId)
+ *               example: 64c1234abc1234abc1234abc
+ *             author:
+ *               type: string
+ *               description: 작성자 User의 ObjectId (User ref)
+ *               example: 64c2345bcd2345bcd2345bcd
+ *             likedBy:
+ *               type: array
+ *               description: 좋아요를 누른 사용자 ObjectId 목록
+ *               items:
+ *                 type: string
+ *               example:
+ *                 - 64c3456cde3456cde3456cde
+ *                 - 64c4567def4567def4567def
+ *             createdAt:
+ *               type: string
+ *               format: date-time
+ *               description: 작성 시각
+ *               example: "2025-09-10T09:30:00.000Z"
  */
 
 /**
@@ -56,41 +60,33 @@ import Question from "../models/question.model.js";
  * /api/question:
  *   post:
  *     summary: 새로운 질문 등록
- *     description: 사용자가 새로운 질문을 작성하여 데이터베이스에 저장합니다.
- *     tags:
- *       - Questions
+ *     tags: [Questions]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Question'
+ *             $ref: '#/components/schemas/QuestionRequest'
  *     responses:
  *       201:
- *         description: 질문이 성공적으로 생성됨
+ *         description: 질문 생성 성공
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
+ *               $ref: '#/components/schemas/QuestionResponse'
  *       500:
- *         description: 서버 오류 (질문 저장 실패)
+ *         description: 서버 오류
  */
-
-
-export const postQuestion=async(req,res)=>{
-    try{
-        const question= new Question({...req.body,author:req.userId});
+export const postQuestion = async (req, res) => {
+    try {
+        const question = new Question({ ...req.body, author: req.session.user?.id });
         await question.save();
-        res.status(201).json({success:true});
-    }catch(err){
+        res.status(201).json({ success: true });
+  } catch (err) {
         console.log(err);
-        res.status(500).json({success:false});
-    }
-}
+        res.status(500).json({ success: false });
+  }
+};
 
 /**
  * @swagger
@@ -109,7 +105,7 @@ export const postQuestion=async(req,res)=>{
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Question'
+ *             $ref: '#/components/schemas/QuestionRequest'
  *     responses:
  *       200:
  *         description: 수정 성공
@@ -118,23 +114,26 @@ export const postQuestion=async(req,res)=>{
  *       500:
  *         description: 서버 오류
  */
+export const editQuestion = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await Question.findById(id);
 
-export const editQuestion=async(req,res)=>{
-    try{
-        const {id}=req.params;
-        const doc=await Question.findById(id);
-        
-        //글쓴이와 같은 사용자만 수정 가능
-        if(!doc.author.equals(req.userId))
-            return res.status(403).json({success:false})
-
-        await Question.findByIdAndUpdate(id,req.body);
-        res.status(200).json({success:true});
-
-    }catch(err){
-        res.status(500).json({success:false})
+    if (!doc) {
+      return res.status(404).json({ success: false, message: "질문이 존재하지 않습니다." });
     }
-}
+
+    if (!doc.author.equals(req.session.user?.id)) {
+      return res.status(403).json({ success: false });
+    }
+
+    await Question.findByIdAndUpdate(id, req.body);
+    res.status(200).json({ success: true });
+  } catch (err) {
+        console.log("editQuestion error 발생", err);
+        res.status(500).json({ success: false });
+  }
+};
 
 /**
  * @swagger
@@ -156,22 +155,26 @@ export const editQuestion=async(req,res)=>{
  *       500:
  *         description: 서버 오류
  */
+export const deleteQuestion = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await Question.findById(id);
 
-export const deleteQuestion=async(req,res)=>{
-    try{
-        const {id}=req.params;
-        const doc=await Question.findById(id);
-
-         //글쓴이와 같은 사용자만 삭제 가능
-        if(!doc.author.equals(req.userId))
-            return res.status(403).json({success:false})
-        
-        await Question.findByIdAndDelete(id);
-        res.status(200).json({success:true});
-    }catch(err){
-        res.status(500).json({success:false})
+    if (!doc) {
+      return res.status(404).json({ success: false, message: "질문이 존재하지 않습니다." });
     }
-}
+
+    if (!doc.author.equals(req.session.user?.id)) {
+      return res.status(403).json({ success: false });
+    }
+
+    await Question.findByIdAndDelete(id);
+    res.status(200).json({ success: true });
+  } catch (err) {
+        console.log("deleteQuestion error 발생", err);
+        res.status(500).json({ success: false });
+  }
+};
 
 /**
  * @swagger
@@ -188,22 +191,27 @@ export const deleteQuestion=async(req,res)=>{
  *     responses:
  *       200:
  *         description: 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/QuestionResponse'
  *       404:
- *         description: 존재하지 않음
+ *         description: 질문 없음
  *       500:
  *         description: 서버 오류
  */
+export const getQuestion = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await Question.findById(id);
 
-export const getQuestion=async(req,res)=>{
-    try{
-        const {id}=req.params;
-
-        const doc=await Question.findById(id);
-        if(!doc)
-            return res.status(404).json({success:false})
-        //question으로 찾은걸 넘겨줌
-        res.status(200).json({success:true,question:doc});
-    }catch(err){
-        res.status(500).json({success:false})
+    if (!doc) {
+      return res.status(404).json({ success: false });
     }
-}
+
+    res.status(200).json({ success: true, question: doc });
+  } catch (err) {
+    console.log("getQuestion error 발생", err);
+    res.status(500).json({ success: false });
+  }
+};
