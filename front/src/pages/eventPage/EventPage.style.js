@@ -1,25 +1,41 @@
 import styled from "styled-components";
 
+export const PageContainer = styled.div`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding-bottom: 180px;
+  }
+`;
+
 export const TitleContainer = styled.div`
-  margin-top: 3rem;
   display: flex;
   justify-content: center;
-  gap: 0.2rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 1.75rem;
+    margin-bottom: 1.875px;
+    gap: 22px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    gap: 4.25rem;
+    margin-top: 54px;
+  }
 `;
 
 export const Logo = styled.img`
   width: 4rem;
-  height: 4rem;
+  height: 4.3rem;
   flex-shrink: 0;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 3rem;
-    height: 3rem;
+    width: 30px;
+    height: 36px;
     display: inline-block;
+    margin-top: 5px;
   }
 `;
 export const LogoDot = styled.img`
-  width: 0.8rem;
-  height: 0.8rem;
+  width: 1.03rem;
+  height: 1.03rem;
   flex-shrink: 0;
   display: inline-block;
   vertical-align: middle;
@@ -30,7 +46,7 @@ export const LogoDot = styled.img`
   }
 `;
 export const Title = styled.div`
-  font-size: 2.4rem;
+  font-size: 2.8rem;
 
   .green {
     color: #37ff3e;
@@ -42,14 +58,19 @@ export const Title = styled.div`
 `;
 
 export const Content = styled.div`
-  font-size: 0.8rem;
   margin: 2rem;
   text-align: center;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: 33px;
+    font-size: 0.75rem;
+  }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     justify-content: center;
     text-align: center;
+    font-size: 1rem;
+    margin-top: 37px;
   }
 `;
 
@@ -61,35 +82,33 @@ export const CardContainer = styled.div`
 
   /* 태블릿 이상에서는: 2열 */
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    grid-template-columns: repeat(2, minmax(300px, 340px));
+    grid-template-columns: repeat(2, 490px);
+    padding-bottom: 80px;
+    margin-top: 78px;
     justify-content: center; /* 그리드 자체 중앙 */
-    justify-items: stretch; /* 셀 안의 카드 중앙 */
-
-    column-gap: 3.5rem;
+    justify-items: stretch;
+    column-gap: 16px;
+    row-gap: 44.7px;
   }
 
   /* 모바일 1열로 */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     grid-template-columns: 1fr;
     justify-items: center;
-    gap: 2rem 2rem;
+    gap: 1.87rem 1.5rem;
 
-    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: 115px;
   }
 `;
 
 export const Card = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
-  margin-top: 1rem;
-  border-radius: 59px;
-
+  border-radius: 59.69px;
   text-align: center;
   line-height: 1.6;
-  padding: 15px 20px 40px 20px;
-
   width: 100%;
-  max-width: 580px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
+  box-sizing: border-box;
 
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(8px);
@@ -102,51 +121,148 @@ export const Card = styled.div`
   /* pc 버전에서는  두카드& 정사각형 느낌으로 구현 */
   &.square {
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-      min-height: 300px; /* 내용이 많으면 더 커질 수 있음 */
       display: flex;
       flex-direction: column;
-      justify-content: center; /* 카드 안 내용 중앙 */
+      justify-content: center;
+      width: 490px;
+      height: 463px;
+
+      box-sizing: border-box;
     }
   }
   /* pc버전에서: 아래 카드: 두 칼럼 모두 차지 */
   &.full {
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
       grid-column: 1 / -1;
-      max-width: 1000px; /* 2칸 + 간격 합친 폭에서  상한 */
+      max-width: 996px;
+      min-height: 289px;
+      margin-bottom: 274px;
     }
   }
 
   h3 {
-    font-size: 0.9rem;
+    font-size: 1.21rem;
     font-weight: 500;
   }
-  .time {
-    margin-bottom: 1.4rem;
-  }
+
   .time h3 {
-    font-size: 1.2rem;
+    font-size: 1.39rem;
+    font-weight: 500;
+  }
+
+  /*모바일 버전 카드*/
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 327px;
+    height: 207px;
+    padding: 25px 0 25px;
+    border-radius: 40px;
+    box-sizing: border-box;
+
+    &.long-card {
+      height: 252px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .time h3 {
+      font-size: 0.94rem;
+      font-weight: 500;
+    }
+    .text h3 {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .text p {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    h3 {
+      font-size: 0.81rem;
+      font-weight: 400;
+      margin: 0;
+    }
+    .time {
+      margin: 0;
+    }
+  }
+`;
+export const CardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-bottom: 116.11px;
+    font-size: 1.5rem;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 300px;
-    margin: 0 auto;
-    border-radius: 40px;
   }
 `;
+
 export const CardTitle = styled.h2`
   color: #37ff3e;
-  font-weight: bold;
+  font-weight: 400;
+  font-size: 26px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.2rem; /* 폰트 종류때문에 디자인과 다른것같아서, 약간 줄였습니다*/
+    margin: 0 0 20px; /*(피그마에는 30으로 나와있지만 , 20으로 일단 설정했습니다 )*/
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 116px;
+    margin-bottom: 44.77px;
+    font-size: 2.2rem;
+  }
+`;
+export const CardTitle2 = styled.h2`
+  color: #37ff3e;
+  font-weight: 400;
   font-size: 1.2rem;
-  margin-top: 1rem;
-  margin-bottom: 1.6rem;
-  text-align: center;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin: 0 0 30px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 103px;
+    margin-bottom: 39.71px;
+    font-size: 2.2rem;
+  }
+`;
+export const CardTitle3 = styled.h2`
+  color: #37ff3e;
+  font-weight: 400;
+  font-size: 1.2rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin: 0 0 20px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 74.47px;
+    margin-bottom: 44.77px;
+    font-size: 2.2rem;
+  }
 `;
 
 export const CardList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
   align-items: center;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    gap: 22px;
+    margin-bottom: 103.46px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 19px;
+  }
 `;
 export const CardList2 = styled.div`
   display: flex;
@@ -159,14 +275,23 @@ export const CardList2 = styled.div`
     justify-content: center;
     align-items: flex-start;
     gap: 3rem;
+    margin-bottom: 74.47px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 19px;
   }
 `;
 
 export const CardItem = styled.div`
   display: flex;
+
   align-items: baseline; /* 같은 선상(수직 중앙 정렬) */
   justify-content: flex-start;
-  gap: 6px;
+  gap: 10.59px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 0.5rem;
+  }
 
   .text {
     display: flex;
@@ -177,18 +302,19 @@ export const CardItem = styled.div`
     line-height: 1.3;
   }
   h3 {
-    font-size: 1rem;
+    font-size: 1.18rem;
     font-weight: 400;
     line-height: 1.35;
   }
   p {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 1.16rem;
     color: #ccc;
+    font-weight: 500;
     line-height: 1.35;
   }
   .text p {
-    margin-right: 2.5rem;
+    margin-right: 3rem;
   }
 `;
 
@@ -202,24 +328,42 @@ export const CardItem2 = styled.div`
     align-items: center;
     margin: 0;
     padding: 0;
-    gap: 0.6rem;
+    gap: 10.59px;
     line-height: 1.3;
     margin-bottom: 0.3rem;
   }
   h3 {
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 1.16rem;
+    font-weight: 500;
     margin: 0;
     line-height: 1.35;
   }
   p {
     margin: 0;
-
-    font-size: 0.85rem;
+    font-weight: 400;
+    font-size: 1.16rem;
     color: #ccc;
     line-height: 1.35;
   }
+
   .CardItems22 p {
-    margin-left: 1.2rem;
+    margin-left: 1.5rem;
+  }
+
+  .CardItems22 p {
+    margin-left: 1.7rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    .firstLine {
+      gap: 8px;
+    }
+    .firstLine h3 {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    p {
+      font-size: 0.75rem;
+    }
   }
 `;
