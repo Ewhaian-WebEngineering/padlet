@@ -35,7 +35,7 @@ function IntroPage() {
 
         {/* 3. cardContainer-card 3개 위치  */}
         <S.CardContainer>
-          <S.Card className="square">
+          <S.Card className="square" style={{ maxHeight: 180 }}>
             <S.CardTitle>강연 정보</S.CardTitle>
             <div className="time">
               <h3>{eventInfo.date}</h3>
@@ -78,21 +78,25 @@ function IntroPage() {
           <S.Card className="full">
             <S.CardTitle>강연 주제</S.CardTitle>
             <S.CardList2>
-              <S.CardItem>
-                <S.LogoDot src={logoDott} alt="logo" />
-                <div className="text">
-                  <h3>00학과 교수 000연사</h3>
+              <S.CardItem2>
+                <div className="CardItems22">
+                  <div className="firstLine">
+                    <S.LogoDot src={logoDott} alt="logo" />
+                    <h3>00학과 교수 000연사</h3>
+                  </div>
                   <p>강연 주제입니다: 강연 주제 소제목</p>
                 </div>
-              </S.CardItem>
+              </S.CardItem2>
 
-              <S.CardItem>
-                <S.LogoDot src={logoDott} alt="logo" />
-                <div className="text">
-                  <h3>00학과 교수 000연사</h3>
+              <S.CardItem2>
+                <div className="CardItems22">
+                  <div className="firstLine">
+                    <S.LogoDot src={logoDott} alt="logo" />
+                    <h3>00학과 교수 000연사</h3>
+                  </div>
                   <p>강연 주제입니다: 강연 주제 소제목</p>
                 </div>
-              </S.CardItem>
+              </S.CardItem2>
             </S.CardList2>
           </S.Card>
         </S.CardContainer>

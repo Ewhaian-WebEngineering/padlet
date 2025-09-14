@@ -4,7 +4,7 @@ export const TitleContainer = styled.div`
   margin-top: 3rem;
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.2rem;
 `;
 
 export const Logo = styled.img`
@@ -12,10 +12,9 @@ export const Logo = styled.img`
   height: 4rem;
   flex-shrink: 0;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     display: inline-block;
-    margin-top: 0.5rem;
   }
 `;
 export const LogoDot = styled.img`
@@ -38,12 +37,12 @@ export const Title = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 `;
 
 export const Content = styled.div`
-  font-size: 12px;
+  font-size: 0.8rem;
   margin: 2rem;
   text-align: center;
 
@@ -58,7 +57,7 @@ export const Content = styled.div`
 export const CardContainer = styled.div`
   display: grid;
   gap: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 1.1px;
 
   /* 태블릿 이상에서는: 2열 */
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -82,15 +81,14 @@ export const CardContainer = styled.div`
 export const Card = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   margin-top: 1rem;
-
-  border-radius: 45px;
+  border-radius: 59px;
 
   text-align: center;
   line-height: 1.6;
   padding: 15px 20px 40px 20px;
 
   width: 100%;
-  max-width: 560px;
+  max-width: 580px;
   margin: 0 auto 0 auto;
 
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -119,11 +117,11 @@ export const Card = styled.div`
   }
 
   h3 {
-    font-size: 16px;
+    font-size: 0.9rem;
     font-weight: 500;
   }
   .time {
-    margin-bottom: 2rem;
+    margin-bottom: 1.4rem;
   }
   .time h3 {
     font-size: 1.2rem;
@@ -132,14 +130,15 @@ export const Card = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 300px;
     margin: 0 auto;
+    border-radius: 40px;
   }
 `;
 export const CardTitle = styled.h2`
   color: #37ff3e;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.2rem;
   margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
   text-align: center;
 `;
 
@@ -167,7 +166,7 @@ export const CardItem = styled.div`
   display: flex;
   align-items: baseline; /* 같은 선상(수직 중앙 정렬) */
   justify-content: flex-start;
-  gap: 10px;
+  gap: 6px;
 
   .text {
     display: flex;
@@ -178,7 +177,7 @@ export const CardItem = styled.div`
     line-height: 1.3;
   }
   h3 {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.35;
   }
@@ -187,5 +186,40 @@ export const CardItem = styled.div`
     font-size: 0.85rem;
     color: #ccc;
     line-height: 1.35;
+  }
+  .text p {
+    margin-right: 2.5rem;
+  }
+`;
+
+export const CardItem2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 같은 선상(수직 중앙 정렬) */
+
+  .firstLine {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    gap: 0.6rem;
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.35;
+  }
+  p {
+    margin: 0;
+
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.35;
+  }
+  .CardItems22 p {
+    margin-left: 1.2rem;
   }
 `;
