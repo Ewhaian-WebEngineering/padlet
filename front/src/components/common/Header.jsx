@@ -3,14 +3,15 @@ import * as S from "./Header.style";
 import logo from "../../assets/common/logo.svg";
 import Button from "./Button";
 
-export default function Header({ username, isLogin }) {
+// 행사소개 선택 시 pickMenu를 0으로 전달, 실시간QNA 선택 시 pickMenu를 1으로 전달
+export default function Header({pickMenu, username, isLogin }) {
   return (
     <S.Container>
       <S.LeftContainer>
-        <S.Logo src={logo} alt="logo" />
+        <S.Logo src={logo} alt="logo" onClick={() => window.location.reload()} />
         <S.MenuContainer>
-          <Button buttonName={"행사소개"} isPick={false} />
-          <Button buttonName={"실시간QNA"} isPick={true} />
+          <Button buttonName={"행사소개"} isPick={pickMenu == 0} />
+          <Button buttonName={"실시간QNA"} isPick={pickMenu == 1} />
         </S.MenuContainer>
       </S.LeftContainer>
 

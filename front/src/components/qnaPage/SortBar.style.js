@@ -19,6 +19,8 @@ export const Container = styled.div`
 `;
 
 export const BtnContainer = styled.div`
+position: relative;
+overflow: visible;
   width: 70rem;
   display: flex;
   align-items: center;
