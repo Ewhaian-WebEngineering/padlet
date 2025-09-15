@@ -13,7 +13,7 @@ export default function Header({pickMenu, username, isLogin }) {
         <S.Logo src={logo} alt="logo" onClick={() => window.location.reload()} />
         <S.MenuContainer>
           <Button buttonName={"행사소개"} isPick={pickMenu == 0} onClick={() => navigate("/event-info")} />
-          <Button buttonName={"실시간QNA"} isPick={pickMenu == 1} onClick={() => navigate("/qna")} />
+          <Button buttonName={"QNA"} isPick={pickMenu == 1} onClick={() => navigate("/qna")} />
         </S.MenuContainer>
       </S.LeftContainer>
 
