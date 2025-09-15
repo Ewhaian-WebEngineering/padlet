@@ -41,8 +41,9 @@ export const LogoDot = styled.img`
   vertical-align: middle;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 1rem;
-    height: 1rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-top: 3.72px;
   }
 `;
 export const Title = styled.div`
@@ -167,7 +168,8 @@ export const Card = styled.div`
     flex-direction: column;
     justify-content: flex-start;
 
-    .time h3 {
+    .date h3 {
+      /*강연정보 카드- 날짜 */
       font-size: 0.94rem;
       font-weight: 500;
     }
@@ -254,7 +256,7 @@ export const CardTitle3 = styled.h2`
 export const CardList = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     gap: 22px;
@@ -284,37 +286,73 @@ export const CardList2 = styled.div`
 
 export const CardItem = styled.div`
   display: flex;
-
-  align-items: baseline; /* 같은 선상(수직 중앙 정렬) */
-  justify-content: flex-start;
+  align-items: baseline; /* 같은 선상으로 */
   gap: 10.59px;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    gap: 0.5rem;
-  }
+  margin-left: 116.37px;
 
   .text {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 128.8px 1fr; /*시간텍스트로부터 거리 */
+    justify-items: start;
+    align-items: baseline;
     margin: 0;
     padding: 0;
     gap: 2px;
     line-height: 1.3;
   }
-  h3 {
-    font-size: 1.18rem;
+  .time {
+    grid-column: 1;
+    font-size: 1.158rem;
+    min-width: 110px;
     font-weight: 400;
-    line-height: 1.35;
+    text-align: left;
   }
+  .title {
+    font-size: 1.158rem;
+    font-weight: 500;
+  }
+
   p {
     margin: 0;
     font-size: 1.16rem;
-    color: #ccc;
     font-weight: 500;
     line-height: 1.35;
   }
-  .text p {
-    margin-right: 3rem;
+  .text .speaker {
+    grid-column: 1 / -1;
+    margin-top: 2px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 0.5rem;
+    margin-left: 66px;
+
+    .text {
+      display: grid;
+      grid-template-columns: 98px 1fr; /* 시간텍스트로부터 거리*/
+      align-items: baseline;
+      margin: 0;
+      padding: 0;
+      gap: 2px;
+      line-height: 1.3;
+      flex: 1;
+    }
+    .time {
+      font-size: 0.875rem;
+      font-weight: 400;
+      text-align: left;
+    }
+    .title {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .text .speaker {
+      grid-column: 1 / -1;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-top: 2px;
+    }
   }
 `;
 
@@ -350,10 +388,6 @@ export const CardItem2 = styled.div`
     margin-left: 1.5rem;
   }
 
-  .CardItems22 p {
-    margin-left: 1.7rem;
-  }
-
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     .firstLine {
       gap: 8px;
@@ -364,6 +398,11 @@ export const CardItem2 = styled.div`
     }
     p {
       font-size: 0.75rem;
+      font-weight: 400;
+    }
+
+    .CardItems22 p {
+      margin-left: 1.33rem; /* 모바일에서 거리 8px*/
     }
   }
 `;

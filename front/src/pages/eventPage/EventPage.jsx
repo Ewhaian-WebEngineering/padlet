@@ -38,7 +38,7 @@ function IntroPage() {
           <S.Card className="square">
             <S.CardTitle>강연 정보</S.CardTitle>
             <S.CardContent>
-              <div className="time">
+              <div className="date">
                 <h3>{eventInfo.date}</h3>
                 <h3>{eventInfo.location}</h3>
               </div>
@@ -49,16 +49,16 @@ function IntroPage() {
             </S.CardContent>
           </S.Card>
 
+          {/* *2번쨰: 강연 시간표 카드  */}
+
           <S.Card className="square long-card">
             <S.CardTitle2>강연 시간표</S.CardTitle2>
             <S.CardList>
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" className="firstDot" />
                 <div className="text">
-                  <h3>
-                    18:00~18:10 &nbsp;&nbsp; &nbsp;&nbsp;
-                    오프닝&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </h3>
+                  <span className="time">18:00~18:10</span>
+                  <span className="title">오프닝</span>
                 </div>
               </S.CardItem>
 
@@ -66,21 +66,24 @@ function IntroPage() {
                 <S.LogoDot src={logoDott} alt="logo" />
 
                 <div className="text">
-                  <h3>18:00~18:10 &nbsp; &nbsp; &nbsp;첫번째 강연</h3>
-                  <p> {eventInfo.speaker1}</p>
+                  <span className="time">18:00~18:10</span>
+                  <span className="title">첫 번째 강연</span>
+                  <p className="speaker"> {eventInfo.speaker1}</p>
                 </div>
               </S.CardItem>
 
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" />
                 <div className="text">
-                  <h3>18:50~19:20 &nbsp;&nbsp; &nbsp;두번째 강연</h3>
-                  <p> {eventInfo.speaker2}</p>
+                  <span className="time">18:50~19:20</span>
+
+                  <span className="title">두 번째 강연</span>
+                  <p className="speaker"> {eventInfo.speaker2}</p>
                 </div>
               </S.CardItem>
             </S.CardList>
           </S.Card>
-
+          {/* 3번째 카드:주제 */}
           <S.Card className="full">
             <S.CardTitle3>강연 주제</S.CardTitle3>
             <S.CardList2>
