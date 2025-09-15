@@ -215,3 +215,52 @@ export const getQuestion = async (req, res) => {
     res.status(500).json({ success: false });
   }
 };
+
+
+/**
+ * @swagger
+ * /api/question/detail/{id}:
+ *   get:
+ *     summary: 질문 상세 불러오기
+ *     tags: [Questions]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: 조회할 질문의 ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: 질문 상세 조회 성공
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 category:
+ *                   type: string
+ *                 title:
+ *                   type: string
+ *                 content:
+ *                   type: string
+ *       404:
+ *         description: 질문이 존재하지 않음
+ *       500:
+ *         description: 서버 오류
+ */
+export const getQuestionDetail = async(req, res) => {
+  try {
+    const{ id } = req.params;
+    // category, title, content만 가져오기
+    const question = await Question.findById(id, 'category title content');
+    if (!question) {
+      return res.status(404).json({ success: false, message: "질문이 존재하지 않습니다." });
+    }
+    res.json(question);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
