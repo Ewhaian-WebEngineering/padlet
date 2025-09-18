@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const ModalContainer = styled.div`
   max-width: 32.6875rem;
-  max-height: 38.255rem;
+  height: 38.255rem;
   border-radius: 32px;
-
+  background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: start;
 
-  background-color:#FFFFFF
+  box-sizing: border-box;
 
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(8px);
@@ -21,46 +21,45 @@ export const ModalContainer = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 20.4375rem;
-    max-height: 26.9375rem;
+    height: 27.4rem;
+    margin: 188px auto; /*(top에서 188)*/
     border-radius: 20px;
-    padding-bottom:20px;
-    flex: start;
-    background-color:rgba(255,255,255,0.2);
-    margin: 188px auto;        /*(top에서 188)*/
-    
-    
 
-
-
+    box-sizing: border-box;
+    padding: 20px;
   }
 `;
 
 export const AskHeader = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 10.125rem;
+  justify-content: space-between;
+  align-items: center;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: 20px;
+    max-height: 26px;
   }
 `;
-export const XLogo = styled.div``;
+export const XLogo = styled.img`
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 24px;
+    height: 24px;
+  }
+`;
 
 export const AskContent = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
-  margin-left: 20px;
-  //margin-bottom: 20px;
+  align-items: flex-start;
 `;
+
 export const CategotyFilterStyle = styled.div`
   margin-bottom: 20px;
 `;
 export const AskTitleContainer = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: 15px;
+
     p {
       margin-bottom: 10px;
       font-size: 0.8125rem;
@@ -88,7 +87,7 @@ export const AskTitleContainer = styled.div`
 `;
 export const AskContentContainer = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     p {
       margin-bottom: 10px;
       font-size: 0.8125rem;
@@ -116,12 +115,12 @@ export const AskContentContainer = styled.div`
 `;
 export const ButtonGroup = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-left: 20px;
     display: flex;
-    flex-direction: start;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-bottom: 0;
     align-items: center;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    gap: 82px;
+
+    padding-bottom: 20px;
   }
 `;

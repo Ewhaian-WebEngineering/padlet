@@ -1,51 +1,77 @@
 import React from "react";
+import { useState, useMemo } from "react";
 import * as S from "./AskModal.style";
-import CategoryFilter from "./CategoryFilter";
+import CategorySelect from "./CategorySelect";
 import SubmitButton from "./SubmitButton";
 import RegisterAnoButton from "./RegisterAnoButton";
+import x from "../../assets/common/x.svg";
+
 function AskModal() {
+  //드롭다운 항목
+  const categories = useMemo(() => ["카테고리1", "카테고리2", "카테고리3"], []);
+
+  const [open, setOpen] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const isVisible = open;
+
+  //모달 입력상태
+  const [Title, setTitle] = useState("");
+  const [Content, setContent] = useState("");
+
+  //선택된 카테고리
+  const [selectedCategory, setselectedCategory] = useState(null);
+
+  //카테고리 선택후, 드롭다운닫기
+  const handleSelect = (item) => {
+    setselectedCategory(item);
+    setOpen(false);
+  };
+
   return (
     <div>
-      {/* format 구상
-
-0. ModalContainer 
-:pc(버전: 523*612) radius:32px, 
-모바일: 327*431, radius:40px
-
-
-
-1. AskHeader : 새질문 등록하기, x버튼
-
-1.5.AskContent: 2,3,4,홀드 
-2. 카테고리선택 바
-3. AskTitleContainer
-    (질문제목, input칸)
-4. AskcontentContainer
-    (질문내용, input칸)
-5. ButtonGroup : 버튼들[익명으로 등록하기, 제출하기] */}
-
       <S.ModalContainer>
         {/* Header */}
         <S.AskHeader>
           <p>새 질문 등록하기</p>
-          <S.XLogo>X</S.XLogo>
+          <S.XLogo src={x} />
         </S.AskHeader>
 
         {/* main 부분 */}
         <S.AskContent>
           {/* 카테고리 선택 */}
           <S.CategotyFilterStyle>
-            <CategoryFilter />
+            <CategorySelect
+              categories={categories}
+              visible={isVisible}
+              selectedCategory={selectedCategory}
+              onToggle={() => setOpen(!open)}
+              onSelect={handleSelect}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            />
           </S.CategotyFilterStyle>
           {/* 제목 */}
           <S.AskTitleContainer>
             <p className="title">질문 제목 *</p>
-            <input type="text" placeholder="제목을 입력하세요." />
+            <input
+              type="text"
+              placeholder="제목을 입력하세요."
+              value={Title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
           </S.AskTitleContainer>
           {/* 내용 */}
           <S.AskContentContainer>
             <p className="content">질문 내용 *</p>
-            <textarea placeholder="내용을 입력하세요." />
+            <textarea
+              placeholder="내용을 입력하세요."
+              value={Content}
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
+            />
           </S.AskContentContainer>
         </S.AskContent>
 
