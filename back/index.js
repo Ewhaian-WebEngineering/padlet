@@ -7,12 +7,16 @@ import swaggerUi from "swagger-ui-express";
 import { connectDB } from "./lib/db.js";
 import postRoutes from "./routes/question.route.js";
 import loginRoutes from "./routes/login.route.js";
+import { initSocket } from "./lib/socket.js";
+import http from "http";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 const FRONTEND_URL = process.env.FRONTEND_URL;
+
 app.use(express.json());
+
 
 //로그인 세션을 위한 설정
 app.use(
@@ -60,7 +64,11 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/question",postRoutes);
 app.use("/api/login", loginRoutes);
 
-app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}`);
-  connectDB();
+// http + socket 서버 연결
+const server = http.createServer(app);
+initSocket(server); //Socket 연결
+
+server.listen(PORT, () => {
+  console.log(`서버 실행 중: http://localhost:${PORT}`);
+  connectDB(); //DB 연결
 });
