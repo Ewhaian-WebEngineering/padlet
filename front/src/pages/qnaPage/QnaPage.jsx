@@ -8,6 +8,7 @@ import {
   EmptyQuestionInfo,
 } from "./QuestionContainer.style";
 import QuestionCard from "../../components/qnaPage/QuestionCard";
+import CreateQuestionButton from "../../components/qnaPage/CreateQuestionButton";
 
 export default function QnaPage() {
   const questions = [
@@ -124,6 +125,7 @@ export default function QnaPage() {
               첫 질문의 주인공이 되어보세요!
             </EmptyQuestionInfo>
           )}
+          <CreateQuestionButton/>
         </QuestionContainer>
         <MenuBar pickMenu={1} />
       </PageContainer>
