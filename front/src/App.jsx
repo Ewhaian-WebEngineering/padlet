@@ -4,7 +4,6 @@ import LoginPage from "./pages/loginPage/LoginPage";
 import EventPage from "./pages/eventPage/EventPage.jsx";
 import { useEffect } from "react";
 import socket from "../lib/socket.js";
-
 import AskModal from "./components/common/AskModal.jsx";
 
 function App() {

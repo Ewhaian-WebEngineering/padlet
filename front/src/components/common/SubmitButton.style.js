@@ -23,6 +23,18 @@ border:none, outline:none
 
 */
 export const ButtonContainer = styled.div`
+  max-width: 107.4px;
+  max-height: 46.4px;
+  border-radius: 12.88px;
+
+  padding: 9.6px 19.2px;
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #37ff3e;
+  }
+
   display: inline-flex;
   justify-content: center;
   align-items: center;

@@ -1,4 +1,4 @@
-import * as S from "./CategoryFilter.style";
+import * as S from "./CategorySelect.style";
 import arrow from "../../assets/common/Arrow.svg";
 import { createPortal } from "react-dom";
 import { useRef, useState, useEffect } from "react";
@@ -44,6 +44,7 @@ export default function CategorySelect({
       onMouseLeave={onMouseLeave}
       onClick={onToggle}
       ref={containerRef}
+      $active={!!selectedCategory}
     >
       <S.FilterTitle>{selectedCategory || "카테고리 선택"}</S.FilterTitle>
       <S.ArrowContainer>

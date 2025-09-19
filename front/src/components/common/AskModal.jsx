@@ -10,6 +10,7 @@ function AskModal() {
   //드롭다운 항목
   const categories = useMemo(() => ["카테고리1", "카테고리2", "카테고리3"], []);
 
+  //드롭다운 상태
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
   const isVisible = open;
@@ -29,58 +30,64 @@ function AskModal() {
 
   return (
     <div>
-      <S.ModalContainer>
-        {/* Header */}
-        <S.AskHeader>
-          <p>새 질문 등록하기</p>
-          <S.XLogo src={x} />
-        </S.AskHeader>
+      <S.Overlay>
+        <S.ModalContainer>
+          {/* Header */}
+          <S.AskHeader>
+            <p>새 질문 등록하기</p>
+            <S.XLogo src={x} />
+          </S.AskHeader>
 
-        {/* main 부분 */}
-        <S.AskContent>
-          {/* 카테고리 선택 */}
-          <S.CategotyFilterStyle>
-            <CategorySelect
-              categories={categories}
-              visible={isVisible}
-              selectedCategory={selectedCategory}
-              onToggle={() => setOpen(!open)}
-              onSelect={handleSelect}
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-            />
-          </S.CategotyFilterStyle>
-          {/* 제목 */}
-          <S.AskTitleContainer>
-            <p className="title">질문 제목 *</p>
-            <input
-              type="text"
-              placeholder="제목을 입력하세요."
-              value={Title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-            />
-          </S.AskTitleContainer>
-          {/* 내용 */}
-          <S.AskContentContainer>
-            <p className="content">질문 내용 *</p>
-            <textarea
-              placeholder="내용을 입력하세요."
-              value={Content}
-              onChange={(e) => {
-                setContent(e.target.value);
-              }}
-            />
-          </S.AskContentContainer>
-        </S.AskContent>
+          {/* main 부분 */}
+          <S.AskContent>
+            {/* 카테고리 선택 */}
+            <S.CategotyFilterStyle>
+              <CategorySelect
+                categories={categories}
+                visible={isVisible}
+                selectedCategory={selectedCategory}
+                onToggle={() => setOpen(!open)}
+                onSelect={handleSelect}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+              />
+            </S.CategotyFilterStyle>
+            {/* 제목 */}
+            <S.AskTitleContainer>
+              <p className="title">
+                질문 제목 <span className="req">*</span>{" "}
+              </p>
+              <input
+                type="text"
+                placeholder="제목을 입력하세요."
+                value={Title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
+            </S.AskTitleContainer>
+            {/* 내용 */}
+            <S.AskContentContainer>
+              <p className="content">
+                질문 내용 <span className="req">*</span>
+              </p>
+              <textarea
+                placeholder="내용을 입력하세요."
+                value={Content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                }}
+              />
+            </S.AskContentContainer>
+          </S.AskContent>
 
-        {/* 버튼 그룹 */}
-        <S.ButtonGroup>
-          <RegisterAnoButton />
-          <SubmitButton />
-        </S.ButtonGroup>
-      </S.ModalContainer>
+          {/* 버튼 그룹 */}
+          <S.ButtonGroup>
+            <RegisterAnoButton />
+            <SubmitButton />
+          </S.ButtonGroup>
+        </S.ModalContainer>
+      </S.Overlay>
     </div>
   );
 }

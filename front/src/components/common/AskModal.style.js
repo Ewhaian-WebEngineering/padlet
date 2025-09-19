@@ -1,13 +1,37 @@
 import styled from "styled-components";
 
+// 오버레이 설정
+export const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 7px; //헤더에서 70
+  background: transparent;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 164px; //헤더에서 49.3
+    background: transparent;
+  }
+`;
+
 export const ModalContainer = styled.div`
-  max-width: 32.6875rem;
-  height: 38.255rem;
+  width: 33.25rem;
+  height: 42.8rem;
   border-radius: 32px;
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
-  justify-content: start;
+
+  padding: 32px;
 
   box-sizing: border-box;
 
@@ -34,10 +58,16 @@ export const AskHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 32.4px;
+  font-size: 1.875rem;
+  font-weight: 400;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: 20px;
     max-height: 26px;
+
+    font-size: 1.1rem;
+    font-weight: 400;
   }
 `;
 export const XLogo = styled.img`
@@ -51,12 +81,44 @@ export const AskContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  .req {
+    color: #37ff3e;
+  }
 `;
 
 export const CategotyFilterStyle = styled.div`
   margin-bottom: 20px;
 `;
 export const AskTitleContainer = styled.div`
+  margin-bottom: 24px;
+
+  p {
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+    font-weight: 500px;
+  }
+
+  input {
+    width: 459px;
+    height: 56px;
+    border-radius: 16px;
+
+    box-sizing: border-box;
+    padding-left: 16px;
+
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1.2rem;
+    font-weight: 400;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 400;
+    }
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: 15px;
 
@@ -71,6 +133,9 @@ export const AskTitleContainer = styled.div`
       height: 35px;
       border-radius: 10px;
 
+      box-sizing: border-box;
+      padding: 9px 10px;
+
       border: none;
       outline: none;
       background-color: rgba(255, 255, 255, 0.1);
@@ -78,7 +143,6 @@ export const AskTitleContainer = styled.div`
       font-weight: 400;
 
       &::placeholder {
-        padding-left: 10px;
         color: rgba(255, 255, 255, 0.5);
         font-weight: 400;
       }
@@ -86,6 +150,35 @@ export const AskTitleContainer = styled.div`
   }
 `;
 export const AskContentContainer = styled.div`
+  margin-bottom: 24px;
+
+  p {
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+    font-weight: 500px;
+  }
+  textarea {
+    width: 459.2px;
+    height: 230.4px;
+    border-radius: 16px;
+
+    box-sizing: border-box;
+    padding-top: 14.4px;
+    padding-left: 16px;
+
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1.2rem;
+    font-weight: 400;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 400;
+    }
+  }
+
+  //모바일
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: 10px;
     p {
@@ -98,6 +191,10 @@ export const AskContentContainer = styled.div`
       height: 144px;
       border-radius: 10px;
 
+      box-sizing: border-box;
+      padding-top: 9px;
+      padding-left: 10px;
+
       border: none;
       outline: none;
       background-color: rgba(255, 255, 255, 0.1);
@@ -105,8 +202,6 @@ export const AskContentContainer = styled.div`
       font-weight: 400;
 
       &::placeholder {
-        padding-left: 10px;
-        padding-top: 9px;
         color: rgba(255, 255, 255, 0.5);
         font-weight: 400;
       }
@@ -114,6 +209,11 @@ export const AskContentContainer = styled.div`
   }
 `;
 export const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     display: flex;
     justify-content: space-between;
