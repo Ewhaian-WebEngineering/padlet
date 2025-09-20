@@ -4,6 +4,7 @@ import Logo from "../../assets/common/logo.svg";
 import KakaoLogo from "../../assets/loginPage/KakaoLogo.svg";
 import ImageLeft from "../../assets/loginPage/imgLeft.svg";
 import ImageRight from "../../assets/loginPage/imgRight.svg";
+import { goKakaologinPage } from "../../api/auth"
 
 const Wrapper = styled.div`
   background-color: #111;
@@ -107,12 +108,19 @@ const Button = styled.button`
 `;
 
 export default function LoginPage() {
+  const handleKakaoLogin = async () => {
+    const kakaoAuthUrl = await goKakaologinPage();
+    if(kakaoAuthUrl){
+      window.location.href = kakaoAuthUrl;
+    }
+  };
+
   return (
     <Wrapper>
       <Subtitle>2025 이화이언 11월 강연회</Subtitle>
       <Title>이화담(<Highlight>談</Highlight>)</Title>
       <Sub>로그인하고 실시간으로 궁금한 점을 질문하세요.</Sub>
-      <Button className="kakao">
+      <Button className="kakao" onClick={handleKakaoLogin}>
         <img src={KakaoLogo} alt="카카오 로고" />
         카카오로 3초만에 시작하기
         </Button>
