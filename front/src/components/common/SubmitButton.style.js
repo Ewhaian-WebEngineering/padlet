@@ -1,28 +1,9 @@
 import styled from "styled-components";
 
-/*
+export const ButtonContainer = styled.button`
+  all: unset;
+  cursor: pointer;
 
-디자인-pc
-107.4*46.4
-radius: 12.8
-padding: 9.6 ,19.2 ,9.6, 19.2
-font: 19.2
-weight: 600
-
-
-디자인-모바일
-68*29
-radius:8px
-padding:6px 12px 6px 12px
-gap: 10px
-color: #FFFFFF 15%
-font:12
-weight:600
-글라스모피즘 이펙트 
-border:none, outline:none 
-
-*/
-export const ButtonContainer = styled.div`
   max-width: 107.4px;
   max-height: 46.4px;
   border-radius: 12.88px;

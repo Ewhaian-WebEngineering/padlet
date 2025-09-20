@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const RegButtonContainer = styled.div`
+export const RegButtonContainer = styled.button`
+  all: unset;
+  cursor: pointer;
   width: 217px;
   height: 51.2px;
   display: flex;
@@ -13,6 +15,12 @@ export const RegButtonContainer = styled.div`
   border: 1.6px solid rgba(55, 255, 62, 0.6);
   gap: 9.6px;
 
+  &:hover {
+    background-color: rgba(55, 255, 62, 0.5);
+  }
+  &:active {
+    background-color: rgba(55, 255, 62, 0.5);
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 137px;
     height: 32px;

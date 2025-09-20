@@ -6,7 +6,7 @@ import SubmitButton from "./SubmitButton";
 import RegisterAnoButton from "./RegisterAnoButton";
 import x from "../../assets/common/x.svg";
 
-function AskModal() {
+function AskModal({ onClose }) {
   //드롭다운 항목
   const categories = useMemo(() => ["카테고리1", "카테고리2", "카테고리3"], []);
 
@@ -35,7 +35,7 @@ function AskModal() {
           {/* Header */}
           <S.AskHeader>
             <p>새 질문 등록하기</p>
-            <S.XLogo src={x} />
+            <S.XLogo src={x} onClick={onClose} />
           </S.AskHeader>
 
           {/* main 부분 */}
