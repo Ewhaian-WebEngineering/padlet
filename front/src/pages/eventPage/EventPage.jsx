@@ -13,14 +13,13 @@ import eventInfo from "../../data/eventInfo.json";
 function IntroPage() {
   return (
     <div>
-      <Header username={"김이화"} isLogin={true} />
+      <Header username={"김이화"} isLogin={true} pickMenu={0} />
       <PageContainer>
         {/* 1. title Container */}
         <S.TitleContainer>
           <S.Logo src={logo2} alt="logo2" />
           <S.Title>
-            <h3>
-              {" "}
+            <h3 className="font-title">
               이화담(<span className="green">談</span>) 이란?
             </h3>
           </S.Title>
@@ -36,7 +35,7 @@ function IntroPage() {
         {/* 3. cardContainer-card 3개 위치  */}
         <S.CardContainer>
           <S.Card className="square">
-            <S.CardTitle>강연 정보</S.CardTitle>
+            <S.CardTitle className="font-title">강연 정보</S.CardTitle>
             <S.CardContent>
               <div className="date">
                 <h3>{eventInfo.date}</h3>
@@ -52,7 +51,7 @@ function IntroPage() {
           {/* *2번쨰: 강연 시간표 카드  */}
 
           <S.Card className="square long-card">
-            <S.CardTitle2>강연 시간표</S.CardTitle2>
+            <S.CardTitle2 className="font-title">강연 시간표</S.CardTitle2>
             <S.CardList>
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" className="firstDot" />
@@ -85,7 +84,7 @@ function IntroPage() {
           </S.Card>
           {/* 3번째 카드:주제 */}
           <S.Card className="full">
-            <S.CardTitle3>강연 주제</S.CardTitle3>
+            <S.CardTitle3 className="font-title">강연 주제</S.CardTitle3>
             <S.CardList2>
               <S.CardItem2>
                 <div className="CardItems22">
@@ -110,7 +109,7 @@ function IntroPage() {
           </S.Card>
         </S.CardContainer>
 
-        <MenuBar />
+        <MenuBar pickMenu={0} />
       </PageContainer>
     </div>
   );
