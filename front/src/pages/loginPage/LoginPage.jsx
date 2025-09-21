@@ -4,8 +4,16 @@ import Logo from "../../assets/common/logo.svg";
 import KakaoLogo from "../../assets/loginPage/KakaoLogo.svg";
 import ImageLeft from "../../assets/loginPage/imgLeft.svg";
 import ImageRight from "../../assets/loginPage/imgRight.svg";
+import { goKakaologinPage } from "../../api/auth"
 
 export default function LoginPage() {
+  const handleKakaoLogin = async () => {
+    const kakaoAuthUrl = await goKakaologinPage();
+    if(kakaoAuthUrl){
+      window.location.href = kakaoAuthUrl;
+    }
+  };
+
   return (
     <S.Wrapper>
       <S.Subtitle>2025 이화이언 11월 강연회</S.Subtitle>

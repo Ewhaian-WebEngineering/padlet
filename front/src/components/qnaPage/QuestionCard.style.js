@@ -82,7 +82,7 @@ export const QuestionContent = styled.div`
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.5rem;
+  line-height: normal;
   letter-spacing: -0.03375rem;
 
   display: -webkit-box;
@@ -94,6 +94,7 @@ export const QuestionContent = styled.div`
   font-weight: 400;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.75rem;
+    line-height: normal;
     -webkit-line-clamp: 2;
     letter-spacing: -0.0225rem;
   }
