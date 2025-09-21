@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import QnaPage from "./pages/qnaPage/QnaPage";
+import LoginPage from "./pages/loginPage/LoginPage";
+import LoginLoadPage from "./pages/loginPage/LoginLoadPage";
 import EventPage from "./pages/eventPage/EventPage.jsx";
 import { useEffect } from "react";
 import socket from "../lib/socket.js";
@@ -23,7 +25,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/qna" element={<QnaPage />} />
-
+        <Route path="/login" element={<LoginPage />} /> 
+        <Route path="/login/load" element={<LoginLoadPage/>}/>
         <Route path="/event-info" element={<EventPage />} />
       </Routes>
     </Router>

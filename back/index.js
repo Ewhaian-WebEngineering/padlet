@@ -9,6 +9,7 @@ import postRoutes from "./routes/question.route.js";
 import loginRoutes from "./routes/login.route.js";
 import { initSocket } from "./lib/socket.js";
 import http from "http";
+import userinfoRoutes from "./routes/userinfo.route.js";
 
 dotenv.config();
 const app = express();
@@ -63,6 +64,7 @@ const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/question",postRoutes);
 app.use("/api/login", loginRoutes);
+app.use("/api/user", userinfoRoutes);
 
 // http + socket 서버 연결
 const server = http.createServer(app);
