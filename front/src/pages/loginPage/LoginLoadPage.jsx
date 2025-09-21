@@ -2,9 +2,12 @@ import { useEffect } from "react";
 import * as S from "./LoginLoad.style";
 import { useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../api/auth";
+import useUserStore from "../../store/useUserStore";
 
 export default function QnaPage() {
   const navigate = useNavigate();
+  const { fetchUser } = useUserStore();
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
@@ -18,6 +21,7 @@ export default function QnaPage() {
     const loginProcess = async () => {
       const result = await kakaoLogin(code);
       if (result) {
+        await fetchUser();
         navigate("/event-info");
       } else {
         navigate("/login");
@@ -25,7 +29,7 @@ export default function QnaPage() {
     };
 
     loginProcess();
-  }, [navigate]);
+  }, [navigate, fetchUser]);
   return (
     <S.Container>
       <S.Spinner />

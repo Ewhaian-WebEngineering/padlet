@@ -11,7 +11,14 @@ export default function Header({pickMenu}) {
   const { userName, logout } = useUserStore();
 
   const isLogin = !!userName;
-  const username = userName || "";
+  
+  const handleAuthClick = async () => {
+    if(isLogin){
+      await logout();
+    } else {
+      handleKakaoLogin();
+    }
+  }
 
   const handleKakaoLogin = async () => {
       const kakaoAuthUrl = await goKakaologinPage();
@@ -33,7 +40,7 @@ export default function Header({pickMenu}) {
         <S.UserNameContainer $isLogin={isLogin}>
           <S.UserName $isLogin={isLogin}>{userName}</S.UserName>
         </S.UserNameContainer>
-        <S.LoginButton $isLogin={isLogin} onClick={handleKakaoLogin}>
+        <S.LoginButton $isLogin={isLogin} onClick={handleAuthClick}>
           {isLogin ? "Logout" : "Login"}
         </S.LoginButton>
       </S.UserContainer>

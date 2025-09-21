@@ -25,6 +25,17 @@ const useUserStore = create((set) => ({
       }
     }
   },
+  
+  // 로그아웃
+  logout: async () => {
+    try {
+      console.log("ih");
+      await axiosInstance.post("/login/logout", {});
+    } catch (err) {
+      console.error("로그아웃 요청 실패:", err);
+    }
+    set({ userName: null });
+  },
 }));
 
 export default useUserStore;
