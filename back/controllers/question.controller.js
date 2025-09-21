@@ -1,4 +1,5 @@
 import Question from "../models/question.model.js";
+import User from "../models/user.model.js";
 import { getIO } from "../lib/socket.js";
 
 /**
@@ -330,10 +331,22 @@ export const getQuestionDetail = async(req, res) => {
  * @swagger
  * /api/question:
  *   get:
- *     summary: "전체 질문 목록 조회"
- *     description: "데이터베이스에 저장된 모든 질문을 최신순으로 가져옵니다."
+ *     summary: "전체 질문 불러오기"
+ *     description: "카테고리별, 정렬 기준(최신순/좋아요순)에 따라 질문 목록을 가져옵니다."
  *     tags:
- *       - Questions
+ *       - "Question"
+ *     parameters:
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: "질문 카테고리 (예: '강연자1', '강연자2', '전체'). '전체'일 경우 모든 질문 반환"
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string
+ *           enum: [latest, likes]
+ *         description: "정렬 기준: latest(최신순, 기본값), likes(좋아요순)"
  *     responses:
  *       200:
  *         description: "질문 목록 조회 성공"
@@ -342,41 +355,84 @@ export const getQuestionDetail = async(req, res) => {
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
  *                 questions:
  *                   type: array
  *                   items:
- *                     $ref: "#/components/schemas/QuestionResponse"
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         example: "6714e72fc8f99a001c23b123"
+ *                       title:
+ *                         type: string
+ *                         example: "강연자1에 대한 질문"
+ *                       content:
+ *                         type: string
+ *                         example: "Promise와 async/await 차이점이 궁금합니다."
+ *                       category:
+ *                         type: string
+ *                         example: "강연자1"
+ *                       author:
+ *                         type: object
+ *                         properties:
+ *                           username:
+ *                             type: string
+ *                             example: "홍길동"
+ *                           email:
+ *                             type: string
+ *                             example: "test@ewha.ac.kr"
+ *                       likes:
+ *                         type: integer
+ *                         example: 5
+ *                       liked:
+ *                         type: boolean
+ *                         example: true
  *       500:
  *         description: "서버 오류"
  */
-//전체 질문 읽어오기
+// 전체 질문 읽어오기 (카테고리별 정렬, 최신순/좋아요 정렬)
 export const getAllQuestion = async (req, res) => {
   try {
     const userId = req.session.user?.id;
 
-    // Question 컬렉션에서 전체 질문 조회
-    const docs = await Question.find({})
-      .sort({ _id: -1 }) // 최신순 정렬
-      .populate("author", "username email") 
-      .lean(); 
+    // 쿼리 파라미터에서 category, order 값 가져오기
+    const { category, order } = req.query;
 
+    // 카테고리 조건 만들기
+    const filter = {};
+    if (category && category !== "전체") {
+      filter.category = category;
+    }
 
+    // 카테고리에 해당하는 질문 조회
+    let docs = await Question.find(filter)
+      .populate("author", "username email")
+      .lean();
+
+    // 좋아요 개수/로그인 유저 liked 여부 계산
     const questions = docs.map((q) => {
-      // likedBy 배열의 길이 = 좋아요 개수, 만약 배열이 비어있으면 0
       const likes = Array.isArray(q.likedBy) ? q.likedBy.length : 0;
-
-       // 내가 로그인 상태라면 → likedBy 안에 내 userId가 있는지 체크
       const liked = userId
         ? q.likedBy?.some((id) => String(id) === String(userId))
         : false;
 
-      
       return { ...q, likes, liked };
     });
 
+    // 정렬 기준 적용
+    if (order === "likes") {
+      // 좋아요 개수 순 정렬 
+      questions.sort((a, b) => b.likes - a.likes);
+    } else {
+      // 기본: 최신순 
+      questions.sort((a, b) => String(b._id).localeCompare(String(a._id)));
+    }
+
     return res.status(200).json({ success: true, questions });
-  }
-  catch (err) {
+  } catch (err) {
     console.log("getAllQuestion 오류", err);
     return res.status(500).json({ success: false, message: err.message });
   }
