@@ -3,6 +3,7 @@ import QnaPage from "./pages/qnaPage/QnaPage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import LoginLoadPage from "./pages/loginPage/LoginLoadPage";
 import EventPage from "./pages/eventPage/EventPage.jsx";
+import DetailModal from "./components/common/DetailModal.jsx";
 import { useEffect } from "react";
 import socket from "../lib/socket.js";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} /> 
         <Route path="/login/load" element={<LoginLoadPage/>}/>
         <Route path="/event-info" element={<EventPage />} />
+        <Route path="/detailmodal" element={<DetailModal />} />
       </Routes>
     </Router>
   );
