@@ -18,7 +18,7 @@ export default function QnaPage() {
     const loginProcess = async () => {
       const result = await kakaoLogin(code);
       if (result) {
-        navigate("/event-intro");
+        navigate("/event-info");
       } else {
         navigate("/login");
       }

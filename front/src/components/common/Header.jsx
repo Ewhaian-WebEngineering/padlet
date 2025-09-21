@@ -1,12 +1,24 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./Header.style";
 import logo from "../../assets/common/logo.svg";
 import Button from "./Button";
+import useUserStore from "../../store/useUserStore";
+import { goKakaologinPage } from "../../api/auth"
 
 // 행사소개 선택 시 pickMenu를 0으로 전달, 실시간QNA 선택 시 pickMenu를 1으로 전달
-export default function Header({pickMenu, username, isLogin }) {
+export default function Header({pickMenu}) {
   const navigate = useNavigate();
+  const { userName, logout } = useUserStore();
+
+  const isLogin = !!userName;
+  const username = userName || "";
+
+  const handleKakaoLogin = async () => {
+      const kakaoAuthUrl = await goKakaologinPage();
+      if(kakaoAuthUrl){
+        window.location.href = kakaoAuthUrl;
+      }
+    };
   return (
     <S.Container>
       <S.LeftContainer>
@@ -19,9 +31,9 @@ export default function Header({pickMenu, username, isLogin }) {
 
       <S.UserContainer $isLogin={isLogin}>
         <S.UserNameContainer $isLogin={isLogin}>
-          <S.UserName $isLogin={isLogin}>{username}</S.UserName>
+          <S.UserName $isLogin={isLogin}>{userName}</S.UserName>
         </S.UserNameContainer>
-        <S.LoginButton $isLogin={isLogin}>
+        <S.LoginButton $isLogin={isLogin} onClick={handleKakaoLogin}>
           {isLogin ? "Logout" : "Login"}
         </S.LoginButton>
       </S.UserContainer>
