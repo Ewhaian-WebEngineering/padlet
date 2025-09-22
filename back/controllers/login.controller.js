@@ -84,9 +84,6 @@ const getUserInfo = async (accessToken) => {
         const username = profile?.nickname ?? `kakao_${data?.id ?? "user"}`;
         const email = account?.email ?? null;
 
-        console.log("사용자의 username:", username);
-        console.log("사용자의 email:", email);
-
         return { username, email };
     } catch (error) {
         // 에러 디테일 로깅
@@ -101,6 +98,47 @@ const getUserInfo = async (accessToken) => {
 };
 
 //카카오 로그인
+/**
+ * @swagger
+ * /api/login/kakao-login:
+ *   get:
+ *     summary: "카카오 로그인"
+ *     description: "access token을 통해 사용자 정보를 조회하여 세션에 저장합니다."
+ *     tags:
+ *       - "Login"
+ *     parameters:
+ *       - in: query
+ *         name: code
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: "카카오에서 받은 인가코드 (Authorization Code)"
+ *     responses:
+ *       200:
+ *         description: "회원가입 성공"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "회원가입"
+ *       201:
+ *         description: "로그인 성공 (이미 가입된 유저)"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "로그인 성공"
+ *       400:
+ *         description: "인가코드 없음"
+ *       500:
+ *         description: "서버 오류"
+ */
 export const kakaoLogin = async (req, res) => {
     const code = req.query.code;
     if (!code) {
@@ -135,7 +173,6 @@ export const kakaoLogin = async (req, res) => {
                 id: user._id,
                 email: user.email
             };
-            console.log("회원가입:", req.session.user);
 
             return res.status(200).json({ 
                 "message" : "회원가입",
