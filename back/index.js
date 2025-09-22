@@ -32,7 +32,7 @@ app.use(
   })
 );
 
-// ** 카카오로그인전 임시용 **
+// ** 카카오로그인전 임시용 설정했습니다-삭제예정 **
 app.use((req, _res, next) => {
   if (!req.session.user) {
     req.session.user = { id: "68a18562ee91b0f182056433" };
