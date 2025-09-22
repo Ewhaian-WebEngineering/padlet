@@ -9,6 +9,7 @@ import {
 } from "./QuestionContainer.style";
 import QuestionCard from "../../components/qnaPage/QuestionCard";
 import CreateQuestionButton from "../../components/qnaPage/CreateQuestionButton";
+import AskModal from "../../components/common/AskModal";
 
 export default function QnaPage() {
   const questions = [
@@ -90,8 +91,11 @@ export default function QnaPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const isVisible = open || hovered;
-  
+
   const categories = ["카테고리1", "카테고리2", "카테고리3"];
+
+  const [ShowAskModal, setShowAskModal] = useState(false);
+
   return (
     <>
       <Header pickMenu={1} />
@@ -125,8 +129,9 @@ export default function QnaPage() {
               첫 질문의 주인공이 되어보세요!
             </EmptyQuestionInfo>
           )}
-          <CreateQuestionButton/>
+          <CreateQuestionButton onClick={() => setShowAskModal(true)} />
         </QuestionContainer>
+        {ShowAskModal && <AskModal onClose={() => setShowAskModal(false)} />}
         <MenuBar pickMenu={1} />
       </PageContainer>
     </>
