@@ -8,7 +8,7 @@ import x from "../../assets/common/x.svg";
 import axiosInstance from "../../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 
-function AskModal({ onClose }) {
+function AskModal({ onClose, onCreated }) {
   //드롭다운 항목
   const categories = useMemo(() => ["카테고리1", "카테고리2", "카테고리3"], []);
 
@@ -54,14 +54,16 @@ function AskModal({ onClose }) {
 
     try {
       const response = await axiosInstance.post("/api/question", body);
-      if (response?.data.success) {
-        alert("질문작성 완료됐음 ");
+      if (response?.data?.success) {
+        const created = response?.data?.question;
+        onCreated(created);
+        alert("질문등록이 완료되었습니다! ");
         onClose();
       } else {
-        alert("질문작성에 실패했음");
+        alert("질문작성에 실패했습니다 :( ");
       }
     } catch (err) {
-      alert(err);
+      alert(err || "에러가 발생했습니다");
     }
   };
 
@@ -122,7 +124,7 @@ function AskModal({ onClose }) {
           <S.ButtonGroup>
             <RegisterAnoButton
               onClick={() => {
-                setAnonymity(true);
+                setAnonymity((prev) => !prev);
               }}
               active={Anonymity}
             />
