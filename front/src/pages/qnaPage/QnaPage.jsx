@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuBar from "../../components/common/MenuBar";
 import Header from "../../components/common/Header";
 import SortBar from "../../components/qnaPage/SortBar";
@@ -10,6 +10,7 @@ import {
 import QuestionCard from "../../components/qnaPage/QuestionCard";
 import CreateQuestionButton from "../../components/qnaPage/CreateQuestionButton";
 import AskModal from "../../components/common/AskModal";
+import axiosInstance from "../../api/axiosInstance";
 
 export default function QnaPage() {
   const [questions, setQuestions] = useState([
@@ -176,9 +177,22 @@ export default function QnaPage() {
     speakerName: q.category || "발표자",
     writerName: q.anonymity ? null : q.author ?? "작성자",
     questionContent: q.content,
-    likeCount: q.likeCount,
+    likeCount: typeof q.likes === "number" ? q.likes : q.likeCount ?? 0,
     isLiked: q.isLiked,
   });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axiosInstance.get("/api/question");
+        const list = data?.questions ?? [];
+        const mapped = list.map(toCard);
+        setQuestions((previous) => [...mapped, ...previous]);
+      } catch (error) {
+        console.log("질문 목록 불러오기 실패", error);
+      }
+    })();
+  }, []);
 
   const handleCreated = (created) => {
     const card = toCard(created);
