@@ -94,7 +94,7 @@ export default function QnaPage() {
   const categories = ["카테고리1", "카테고리2", "카테고리3"];
   return (
     <>
-      <Header username={"김이화"} isLogin={true} pickMenu={1} />
+      <Header pickMenu={1} />
       <PageContainer>
         <SortBar
           categories={categories}
