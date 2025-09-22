@@ -5,6 +5,8 @@ import CategorySelect from "./CategorySelect";
 import SubmitButton from "./SubmitButton";
 import RegisterAnoButton from "./RegisterAnoButton";
 import x from "../../assets/common/x.svg";
+import axiosInstance from "../../api/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 function AskModal({ onClose }) {
   //드롭다운 항목
@@ -12,8 +14,8 @@ function AskModal({ onClose }) {
 
   //드롭다운 상태
   const [open, setOpen] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const isVisible = open;
+  const [hovered, setHovered] = useState(false);
 
   //모달 입력상태
   const [Title, setTitle] = useState("");
@@ -26,6 +28,41 @@ function AskModal({ onClose }) {
   const handleSelect = (item) => {
     setselectedCategory(item);
     setOpen(false);
+  };
+  //익명여부
+  const [Anonymity, setAnonymity] = useState(false);
+
+  const navigate = useNavigate();
+
+  //
+  const handleModalSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!Title || !Content) {
+      return alert("제목과 내용을 모두 입력하세요");
+    }
+    if (!selectedCategory) {
+      return alert("카테고리를 선택해주세요");
+    }
+
+    const body = {
+      title: Title,
+      content: Content,
+      category: selectedCategory,
+      anonymity: Anonymity,
+    };
+
+    try {
+      const response = await axiosInstance.post("/api/question", body);
+      if (response?.data.success) {
+        alert("질문작성 완료됐음 ");
+        onClose();
+      } else {
+        alert("질문작성에 실패했음");
+      }
+    } catch (err) {
+      alert(err);
+    }
   };
 
   return (
@@ -83,8 +120,18 @@ function AskModal({ onClose }) {
 
           {/* 버튼 그룹 */}
           <S.ButtonGroup>
-            <RegisterAnoButton />
-            <SubmitButton />
+            <RegisterAnoButton
+              onClick={() => {
+                setAnonymity(true);
+              }}
+              active={Anonymity}
+            />
+            <SubmitButton
+              type="submit"
+              onClick={(e) => {
+                handleModalSubmit(e);
+              }}
+            />
           </S.ButtonGroup>
         </S.ModalContainer>
       </S.Overlay>
