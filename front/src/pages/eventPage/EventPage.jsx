@@ -14,6 +14,7 @@ function IntroPage() {
   return (
     <div>
       <Header pickMenu={0} />
+      {/* //충돌해결  */}
       <PageContainer>
         {/* 1. title Container */}
         <S.TitleContainer>
