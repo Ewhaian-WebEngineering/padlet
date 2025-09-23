@@ -29,7 +29,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} /> 
         <Route path="/login/load" element={<LoginLoadPage/>}/>
         <Route path="/event-info" element={<EventPage />} />
-        <Route path="/detailmodal" element={<DetailModal />} />
       </Routes>
     </Router>
   );

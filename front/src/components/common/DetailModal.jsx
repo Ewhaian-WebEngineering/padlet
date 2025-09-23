@@ -1,38 +1,36 @@
 import React from "react";
-import { useState, useMemo } from "react";
 import * as S from "./DetailModal.style";
 import x from "../../assets/common/x.png";
 
-function DetailModal() {
-    return (
-        <S.Overlay>
-            <S.ModalContainer>
-                {/* Header */}
-                <S.AskHeader>
-                    <p>질문 상세</p>
-                    <S.XLogo src={x} />
-                </S.AskHeader>
+function DetailModal({ question, onClose }) {
+  return (
+    <S.Overlay onClick={onClose}>
+      <S.ModalContainer onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <S.AskHeader>
+          <p>질문 상세</p>
+          <S.XLogo src={x} onClick={onClose} />
+        </S.AskHeader>
 
-                {/* main 부분 */}
-                <S.AskContent>
-                    {/* 카테고리 */}
-                    <S.Category>연사자1</S.Category>
-                    {/* 제목 */}
-                    <S.AskContentContainer>
-                        <p className="title">질문 제목</p>
-                        <div className="text-box">제목입니다.</div>
-                    </S.AskContentContainer>
-                    {/* 내용 */}
-                    <S.AskContentContainer>
-                        <p className="content">질문 내용</p>
-                        <div className="text-box">
-                            내용입니다.
-                            내용입니다.
-                        </div>
-                    </S.AskContentContainer>
-                </S.AskContent>
-            </S.ModalContainer>
-        </S.Overlay>
+        {/* main 부분 */}
+        <S.AskContent>
+          {/* 카테고리(연사자 이름) */}
+          <S.Category>{question.speakerName}</S.Category>
+
+          {/* 작성자 */}
+          <S.AskContentContainer>
+            <p className="title">작성자</p>
+            <div className="text-box">{question.writerName ?? "익명"}</div>
+          </S.AskContentContainer>
+
+          {/* 내용 */}
+          <S.AskContentContainer>
+            <p className="content">질문 내용</p>
+            <div className="text-box">{question.questionContent}</div>
+          </S.AskContentContainer>
+        </S.AskContent>
+      </S.ModalContainer>
+    </S.Overlay>
   );
 }
 
