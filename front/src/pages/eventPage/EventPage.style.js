@@ -25,12 +25,13 @@ export const Logo = styled.img`
   width: 4rem;
   height: 4.3rem;
   flex-shrink: 0;
+  margin-top: 5px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 30px;
-    height: 36px;
+    height: 35px;
     display: inline-block;
-    margin-top: 5px;
+    margin-top: 9px;
   }
 `;
 export const LogoDot = styled.img`
@@ -142,11 +143,6 @@ export const Card = styled.div`
   }
 
   h3 {
-    font-size: 1.21rem;
-    font-weight: 500;
-  }
-
-  .time h3 {
     font-size: 1.39rem;
     font-weight: 500;
   }
@@ -202,9 +198,15 @@ export const CardContent = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-bottom: 116.11px;
     font-size: 1.5rem;
+
+    && .reservation h3 {
+      font-weight: 400;
+      font-size: 1.21rem;
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.8125rem;
   }
 `;
 
@@ -220,7 +222,7 @@ export const CardTitle = styled.h2`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 116px;
     margin-bottom: 44.77px;
-    font-size: 2.2rem;
+    font-size: 1.875rem;
   }
 `;
 export const CardTitle2 = styled.h2`
@@ -234,7 +236,7 @@ export const CardTitle2 = styled.h2`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 103px;
     margin-bottom: 39.71px;
-    font-size: 2.2rem;
+    font-size: 1.875rem;
   }
 `;
 export const CardTitle3 = styled.h2`
@@ -249,7 +251,7 @@ export const CardTitle3 = styled.h2`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 74.47px;
     margin-bottom: 44.77px;
-    font-size: 2.2rem;
+    font-size: 1.875rem;
   }
 `;
 
@@ -269,14 +271,13 @@ export const CardList = styled.div`
 export const CardList2 = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
   align-items: center;
   /* pc버전에서는 같은 선상*/
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 5rem;
     margin-bottom: 74.47px;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -364,14 +365,12 @@ export const CardItem2 = styled.div`
   .firstLine {
     display: flex;
     align-items: center;
-    margin: 0;
-    padding: 0;
     gap: 10.59px;
     line-height: 1.3;
     margin-bottom: 0.3rem;
   }
   h3 {
-    font-size: 1.16rem;
+    font-size: 1.158rem;
     font-weight: 500;
     margin: 0;
     line-height: 1.35;
@@ -379,13 +378,14 @@ export const CardItem2 = styled.div`
   p {
     margin: 0;
     font-weight: 400;
-    font-size: 1.16rem;
+    font-size: 1.13rem;
+
     color: #ccc;
     line-height: 1.35;
   }
 
   .CardItems22 p {
-    margin-left: 1.5rem;
+    margin-left: 1.7rem;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {

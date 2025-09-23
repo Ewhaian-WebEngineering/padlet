@@ -34,7 +34,7 @@ function AskModal({ onClose }) {
         <S.ModalContainer>
           {/* Header */}
           <S.AskHeader>
-            <p>새 질문 등록하기</p>
+            <p className="font-title">새 질문 등록하기</p>
             <S.XLogo src={x} onClick={onClose} />
           </S.AskHeader>
 
