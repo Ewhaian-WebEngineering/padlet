@@ -13,7 +13,8 @@ import eventInfo from "../../data/eventInfo.json";
 function IntroPage() {
   return (
     <div>
-      <Header username={"김이화"} isLogin={true} pickMenu={0} />
+      <Header pickMenu={0} />
+
       <PageContainer>
         {/* 1. title Container */}
         <S.TitleContainer>

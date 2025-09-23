@@ -98,7 +98,7 @@ export default function QnaPage() {
 
   return (
     <>
-      <Header username={"김이화"} isLogin={true} pickMenu={1} />
+      <Header pickMenu={1} />
       <PageContainer>
         <SortBar
           categories={categories}
