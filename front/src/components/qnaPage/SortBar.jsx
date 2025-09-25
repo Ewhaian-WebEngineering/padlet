@@ -25,7 +25,7 @@ export default function SortBar({
           onMouseLeave={onMouseLeave}
         />
         <S.InfoContainer2>
-          좋아요 많이 받은 질문부터 바로 답해요!
+          공감하는 질문에 좋아요를 눌러보세요!
         </S.InfoContainer2>
         <S.SortBtnCotainer>
           <Button buttonName={"최신순"} isPick={true} />
@@ -33,7 +33,7 @@ export default function SortBar({
         </S.SortBtnCotainer>
       </S.BtnContainer>
       <S.InfoContainer1>
-        좋아요 많이 받은 질문부터 바로 답해요!
+        공감하는 질문에 좋아요를 눌러보세요!
       </S.InfoContainer1>
     </S.Container>
   );
