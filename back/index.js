@@ -7,8 +7,6 @@ import swaggerUi from "swagger-ui-express";
 import { connectDB } from "./lib/db.js";
 import questionRouter from "./routes/question.route.js";
 import loginRoutes from "./routes/login.route.js";
-import { initSocket } from "./lib/socket.js";
-import http from "http";
 import userinfoRoutes from "./routes/userinfo.route.js";
 
 dotenv.config();
@@ -66,11 +64,8 @@ app.use("/api/question",questionRouter);
 app.use("/api/login", loginRoutes);
 app.use("/api/user", userinfoRoutes);
 
-// http + socket 서버 연결
-const server = http.createServer(app);
-initSocket(server); //Socket 연결
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`서버 실행 중: http://localhost:${PORT}`);
   connectDB(); //DB 연결
 });
