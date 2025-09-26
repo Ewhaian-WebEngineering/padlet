@@ -32,8 +32,6 @@ function AskModal({ onClose, onCreated }) {
   //익명여부
   const [Anonymity, setAnonymity] = useState(false);
 
-  const navigate = useNavigate();
-
   //
   const handleModalSubmit = async (e) => {
     e.preventDefault();
