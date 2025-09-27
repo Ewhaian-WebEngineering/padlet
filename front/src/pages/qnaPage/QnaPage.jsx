@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuBar from "../../components/common/MenuBar";
 import Header from "../../components/common/Header";
 import SortBar from "../../components/qnaPage/SortBar";
@@ -13,7 +13,7 @@ import AskModal from "../../components/common/AskModal";
 import DetailModal from "../../components/common/DetailModal";
 
 export default function QnaPage() {
-  const questions = [
+  const [questions, setQuestions] = useState([
     {
       id: 1,
       speakerName: "유우시",
@@ -86,7 +86,8 @@ export default function QnaPage() {
       questionContent:
         "숨이 자꾸 멎는다 네가 날 향해 걸어온다ㅍ 나를 보며 웃는다 너도 내게 끌리는지 눈앞이 다 캄캄해 네가 뚫어져라 쳐다볼 땐 귓가에 가까워진 숨소리 날 미치게 만드는 너인 걸",
     },
-  ];
+  ]);
+
   const [open, setOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -98,6 +99,20 @@ export default function QnaPage() {
   const categories = ["카테고리1", "카테고리2", "카테고리3"];
 
   const [ShowAskModal, setShowAskModal] = useState(false);
+
+  const toCard = (q) => ({
+    id: q._id || q.id,
+    speakerName: q.category || "발표자",
+    writerName: q.anonymity ? null : q.author ?? "작성자",
+    questionContent: q.content,
+    likeCount: typeof q.likes === "number" ? q.likes : q.likeCount ?? 0,
+    isLiked: q.isLiked,
+  });
+
+  const handleCreated = (created) => {
+    const card = toCard(created);
+    setQuestions((previous) => [card, ...previous]);
+  };
 
   return (
     <>
@@ -119,14 +134,14 @@ export default function QnaPage() {
           {questions.length > 0 ? (
             questions.map((q) => (
               <div key={q.id} onClick={() => setSelectedQuestion(q)}>
-              <QuestionCard
-                key={q.id}
-                speakerName={q.speakerName}
-                writerName={q.writerName}
-                questionContent={q.questionContent}
-                likeCount={q.likeCount}
-                isLiked={q.isLiked}
-              />
+                <QuestionCard
+                  key={q.id}
+                  speakerName={q.speakerName}
+                  writerName={q.writerName}
+                  questionContent={q.questionContent}
+                  likeCount={q.likeCount}
+                  isLiked={q.isLiked}
+                />
               </div>
             ))
           ) : (
@@ -136,7 +151,12 @@ export default function QnaPage() {
           )}
           <CreateQuestionButton onClick={() => setShowAskModal(true)} />
         </QuestionContainer>
-        {ShowAskModal && <AskModal onClose={() => setShowAskModal(false)} />}
+        {ShowAskModal && (
+          <AskModal
+            onCreated={handleCreated}
+            onClose={() => setShowAskModal(false)}
+          />
+        )}
         <MenuBar pickMenu={1} />
       </PageContainer>
 

@@ -2,7 +2,7 @@ import axiosInstance from "./axiosInstance";
 
 export const goKakaologinPage = async () => {
   try {
-    const response = await axiosInstance.get("/login/authorize");
+    const response = await axiosInstance.get("api/login/authorize");
     return response.data.kakaoAuthUrl;
   } catch (error) {
     if (error.response) {
