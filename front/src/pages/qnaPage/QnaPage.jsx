@@ -10,7 +10,6 @@ import {
 import QuestionCard from "../../components/qnaPage/QuestionCard";
 import CreateQuestionButton from "../../components/qnaPage/CreateQuestionButton";
 import AskModal from "../../components/common/AskModal";
-import axiosInstance from "../../api/axiosInstance";
 
 export default function QnaPage() {
   const [questions, setQuestions] = useState([
