@@ -1,7 +1,4 @@
 import Question from "../models/question.model.js";
-import User from "../models/user.model.js";
-import { getIO } from "../lib/socket.js";
-
 /**
  * @swagger
  * components:
@@ -107,8 +104,6 @@ export const postQuestion = async (req, res) => {
   try {
     const question = new Question({ ...req.body, author: req.session.user?.id });
     await question.save();
-    
-    getIO().emit("question:create", question); //socket으로 실시간 반영
 
     res.status(201).json({ success: true , question});
   } catch (err) {
@@ -167,7 +162,6 @@ export const editQuestion = async (req, res) => {
     }
 
     const updated = await Question.findByIdAndUpdate(id, req.body, {new: true});
-    getIO().emit("question:update", updated); //socket으로 실시간 반영
 
     res.status(200).json({ success: true , question: updated});
   } catch (err) {
@@ -223,8 +217,6 @@ export const deleteQuestion = async (req, res) => {
     }
 
     await Question.findByIdAndDelete(id);
-
-    getIO().emit("question:delete", id);
 
     res.status(200).json({ success: true , id});
   } catch (err) {
@@ -333,8 +325,7 @@ export const getQuestionDetail = async(req, res) => {
  *   get:
  *     summary: "전체 질문 불러오기"
  *     description: "카테고리별, 정렬 기준(최신순/좋아요순)에 따라 질문 목록을 가져옵니다."
- *     tags:
- *       - "Question"
+ *     tags: [Questions]
  *     parameters:
  *       - in: query
  *         name: category
