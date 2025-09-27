@@ -4,6 +4,7 @@ import QnaPage from "./pages/qnaPage/QnaPage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import LoginLoadPage from "./pages/loginPage/LoginLoadPage";
 import EventPage from "./pages/eventPage/EventPage.jsx";
+import DetailModal from "./components/common/DetailModal.jsx";
 import { useEffect } from "react";
 import AskModal from "./components/common/AskModal.jsx";
 
