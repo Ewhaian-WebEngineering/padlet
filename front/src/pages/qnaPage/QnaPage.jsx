@@ -10,6 +10,7 @@ import {
 import QuestionCard from "../../components/qnaPage/QuestionCard";
 import CreateQuestionButton from "../../components/qnaPage/CreateQuestionButton";
 import AskModal from "../../components/common/AskModal";
+import DetailModal from "../../components/common/DetailModal";
 
 export default function QnaPage() {
   const [questions, setQuestions] = useState([
@@ -91,6 +92,8 @@ export default function QnaPage() {
   const [hovered, setHovered] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+
   const isVisible = open || hovered;
 
   const categories = ["카테고리1", "카테고리2", "카테고리3"];
@@ -130,14 +133,16 @@ export default function QnaPage() {
         <QuestionContainer>
           {questions.length > 0 ? (
             questions.map((q) => (
-              <QuestionCard
-                key={q.id}
-                speakerName={q.speakerName}
-                writerName={q.writerName}
-                questionContent={q.questionContent}
-                likeCount={q.likeCount}
-                isLiked={q.isLiked}
-              />
+              <div key={q.id} onClick={() => setSelectedQuestion(q)}>
+                <QuestionCard
+                  key={q.id}
+                  speakerName={q.speakerName}
+                  writerName={q.writerName}
+                  questionContent={q.questionContent}
+                  likeCount={q.likeCount}
+                  isLiked={q.isLiked}
+                />
+              </div>
             ))
           ) : (
             <EmptyQuestionInfo>
@@ -154,6 +159,13 @@ export default function QnaPage() {
         )}
         <MenuBar pickMenu={1} />
       </PageContainer>
+
+      {selectedQuestion && (
+        <DetailModal
+          question={selectedQuestion}
+          onClose={() => setSelectedQuestion(null)}
+        />
+      )}
     </>
   );
 }
