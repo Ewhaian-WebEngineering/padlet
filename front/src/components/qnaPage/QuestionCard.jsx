@@ -11,6 +11,7 @@ export default function QuestionCard({
   questionContent,
   likeCount,
   isLiked,
+  onClick,
 }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -29,6 +30,7 @@ export default function QuestionCard({
           <S.LikeBtn
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            onClick={(e) => e.stopPropagation()}
           >
             <img
               src={hovered || isLiked ? FillLikeIcon : EmptyLikeIcon}
@@ -39,10 +41,10 @@ export default function QuestionCard({
         </S.LikeContainer>
         {/* zustand에서 userName === writerName으로 버튼 숨김 구현 */}
         <S.UDBtnContainer>
-          <S.UDBtn>
+          <S.UDBtn onClick={(e) => e.stopPropagation()}>
             <img src={DeleteIcon} alt="delete button" />
           </S.UDBtn>
-          <S.UDBtn>
+          <S.UDBtn onClick={(e) => e.stopPropagation()}>
             <img src={EditIcon} alt="update button" />
           </S.UDBtn>
         </S.UDBtnContainer>

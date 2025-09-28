@@ -32,29 +32,44 @@ button {
   /* color */
   --wh: #fff;
   --bg: #1b1b1b;
-  --gr: #47A24B;
-  --main: #37FF3E;
+  --gr: #47a24b;
+  --main: #37ff3e;
+
+  --font-title: "BM DoHyeon", "배달의민족 도현", "Noto Sans KR";
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
+  width: 8px;
+  height: 8px;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-  }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.4);
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+@font-face {
+  font-family: "BM DoHyeon";
+  src: url("/fonts/BMDOHYEON_ttf.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-title {
+  font-family: var(--font-title);
+  font-weight: 400;
+}

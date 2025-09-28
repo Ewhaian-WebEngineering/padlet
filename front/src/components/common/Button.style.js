@@ -27,7 +27,6 @@ export const Container = styled.button`
   line-height: normal;
   letter-spacing: -0.03375rem;
   &:hover {
-    transform: translateY(-2px);
     border: 1px solid var(--main, #37ff3e);
     background: rgba(55, 255, 62, 0.5);
   }

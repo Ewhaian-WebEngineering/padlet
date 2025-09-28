@@ -17,9 +17,10 @@ export const CardContainer = styled.div`
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.1),
     inset 0 0 6px 3px rgba(255, 255, 255, 0.15);
+  
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 10rem;
-    height: 10rem;
+    width: 9.5rem;
+    height: 9.5rem;
     padding: 0.875rem 0.75rem;
     border-radius: 0.625rem;
   }
@@ -27,6 +28,11 @@ export const CardContainer = styled.div`
   @media (max-width: 375px) {
     width: 9rem;
     height: 9rem;
+  }
+  
+  @media (max-width: 360px){
+    width: 8rem;
+    height: 8rem;
   }
 `;
 
@@ -82,7 +88,7 @@ export const QuestionContent = styled.div`
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.5rem;
+  line-height: normal;
   letter-spacing: -0.03375rem;
 
   display: -webkit-box;
@@ -94,6 +100,7 @@ export const QuestionContent = styled.div`
   font-weight: 400;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.75rem;
+    line-height: normal;
     -webkit-line-clamp: 2;
     letter-spacing: -0.0225rem;
   }
