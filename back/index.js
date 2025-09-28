@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import { connectDB } from "./lib/db.js";
 import postRoutes from "./routes/question.route.js";
 import loginRoutes from "./routes/login.route.js";
+import likeRoutes from "./routes/like.route.js";
 
 dotenv.config();
 const app = express();
@@ -59,6 +60,7 @@ const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/question",postRoutes);
 app.use("/api/login", loginRoutes);
+app.use("/api/like", likeRoutes);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
