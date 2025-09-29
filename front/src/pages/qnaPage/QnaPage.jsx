@@ -15,7 +15,7 @@ import DetailModal from "../../components/common/DetailModal";
 export default function QnaPage() {
   const [questions, setQuestions] = useState([
     {
-      id:1,
+      id: 1,
       speakerName: "유우시",
       writerName: "버블냥",
       questionContent:
