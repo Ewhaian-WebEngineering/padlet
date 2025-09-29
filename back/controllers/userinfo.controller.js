@@ -19,7 +19,7 @@ import User from "../models/user.model.js";
  *                   type: string
  *                   description: "사용자 이름"
  *                   example: "김이화"
- *      404:
+ *       404:
  *         description: "권한 없음"
  *         content:
  *           application/json:

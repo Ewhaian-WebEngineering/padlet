@@ -4,7 +4,6 @@ import EmptyLikeIcon from "../../assets/qnaPage/EmptyLike.svg";
 import DeleteIcon from "../../assets/qnaPage/Trash.svg";
 import EditIcon from "../../assets/qnaPage/Edit.svg";
 import { useState } from "react";
-import { deleteQuestionApi } from "../../api/question.js";
 
 export default function QuestionCard({
   id,
