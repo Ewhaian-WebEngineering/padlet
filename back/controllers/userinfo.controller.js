@@ -19,6 +19,16 @@ import User from "../models/user.model.js";
  *                   type: string
  *                   description: "사용자 이름"
  *                   example: "김이화"
+ *       404:
+ *         description: "권한 없음"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "getName: 로그인안되어있음"
  *       500:
  *         description: "서버 오류"
  *         content:
@@ -34,10 +44,10 @@ export const getName = async (req, res) => {
     try {
         const userId = req.session.user?.id;
 
-        //로그인이 안되어있으면 빈 string으로 반환
+        //로그인이 안되어있으면 404
         //로그인이 되어있으면 이름 찾아서 반환
         if (!userId) {
-            return res.json({ username: "" });
+            return res.status(404).json({ message:"getName: 로그인안되어있음" });
         }
 
         const user = await User.findById(userId).select("username");;

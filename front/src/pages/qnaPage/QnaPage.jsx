@@ -118,11 +118,14 @@ export default function QnaPage() {
               <div key={q.id} onClick={() => setSelectedQuestion(q)}>
                 <QuestionCard
                   key={q.id}
+                  id={q.id} 
                   speakerName={q.speakerName}
                   writerName={q.writerName}
                   questionContent={q.questionContent}
                   likeCount={q.likeCount}
                   isLiked={q.isLiked}
+                  onClick={() => setSelectedQuestion(q)}
+                  onDeleted={(id) => setQuestions((prev) => prev.filter((item) => item.id !== id))} //해당 id를 가진 질문이 삭제
                 />
               </div>
             ))

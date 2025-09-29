@@ -1,7 +1,7 @@
 import express from "express";
 import {
   postQuestion, editQuestion,
-  deleteQuestion, getQuestion,
+  deleteQuestion, 
   getQuestionDetail, getAllQuestion
 } from "../controllers/question.controller.js";
 import { requireAuth } from "../middleware/auth.js";
