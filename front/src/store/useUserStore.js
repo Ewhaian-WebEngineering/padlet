@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axiosInstance from "../api/axiosInstance";
 
 const useUserStore = create((set) => ({
-  userName: null,
+  userName: undefined,
   loading: false,
   error: null,
 
@@ -11,7 +11,7 @@ const useUserStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const response = await axiosInstance.get("/user/name");
-      if(response.username === ""){
+      if(response.data.username === ""){
         set({ userName: null, error: "세션이 만료되었습니다.", loading: false });
         return;
       }
