@@ -7,8 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import { connectDB } from "./lib/db.js";
 import questionRouter from "./routes/question.route.js";
 import loginRoutes from "./routes/login.route.js";
-import { initSocket } from "./lib/socket.js";
-import http from "http";
+import likeRoutes from "./routes/like.route.js";
 import userinfoRoutes from "./routes/userinfo.route.js";
 
 dotenv.config();
@@ -18,6 +17,13 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
 
 //로그인 세션을 위한 설정
 app.use(
@@ -25,13 +31,14 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-      cookie: {
-          secure: false,
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 24 //24시간동안 유지
-      },
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24, //24시간동안 유지
+    },
   })
 );
+
 //swagger
 const options = {
   swaggerDefinition: {
@@ -41,36 +48,26 @@ const options = {
       version: "1.0.0",
       description: "이 문서는 Padlet api 문서입니다.",
     },
-    servers: [
-      { url: "http://localhost:5000" } 
-    ],
+    servers: [{ url: "http://localhost:5000" }],
     tags: [
       {
         name: "Questions",
-        description: "질문 관련 API (생성, 조회, 수정, 삭제)"
-      },]
+        description: "질문 관련 API (생성, 조회, 수정, 삭제)",
+      },
+    ],
   },
   apis: ["./controllers/*.js"],
 };
 
-app.use(cors({
-  origin: FRONTEND_URL,
-  credentials: true,
-  optionsSuccessStatus: 200
-}));
-
 const specs = swaggerJSDoc(options);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
-app.use("/api/question",questionRouter);
+app.use("/api/question", questionRouter);
 app.use("/api/login", loginRoutes);
+app.use("/api/like", likeRoutes);
 app.use("/api/user", userinfoRoutes);
 
-// http + socket 서버 연결
-const server = http.createServer(app);
-initSocket(server); //Socket 연결
-
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`서버 실행 중: http://localhost:${PORT}`);
   connectDB(); //DB 연결
 });

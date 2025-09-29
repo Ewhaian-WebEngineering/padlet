@@ -1,7 +1,8 @@
 import express from "express";
 import {
   postQuestion, editQuestion,
-  deleteQuestion, getQuestion, getQuestionDetail, getAllQuestion
+  deleteQuestion, 
+  getQuestionDetail, getAllQuestion
 } from "../controllers/question.controller.js";
 import { requireAuth } from "../middleware/auth.js";
 
@@ -20,9 +21,6 @@ questionRouter.post("/",requireAuth,postQuestion);
 questionRouter.put("/:id",requireAuth,editQuestion);
 //삭제
 questionRouter.delete("/:id",requireAuth,deleteQuestion);
-//불러오기
-questionRouter.get("/:id",getQuestion);
-
 //상세 불러오기
 questionRouter.get("/detail/:id",getQuestionDetail);
 

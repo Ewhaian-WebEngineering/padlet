@@ -10,10 +10,16 @@ export const RegButtonContainer = styled.button`
   align-items: center;
   border-radius: 1598px;
 
-  font-size: 1.2rem;
+  background-color: ${({ $active }) =>
+    $active ? " rgba(55, 255, 62, 0.5)" : "transparent"};
+
+  p {
+    font-size: 1.1rem;
+  }
+
   font-weight: 400;
   border: 1.6px solid rgba(55, 255, 62, 0.6);
-  gap: 9.6px;
+  gap: 15px;
 
   &:hover {
     background-color: rgba(55, 255, 62, 0.5);
@@ -26,8 +32,10 @@ export const RegButtonContainer = styled.button`
     height: 32px;
     border-radius: 1598px;
 
-    font-size: 0.75rem;
-    font-weight: 400;
+    p {
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
 
     border: 1px solid rgba(55, 255, 62, 0.6);
 

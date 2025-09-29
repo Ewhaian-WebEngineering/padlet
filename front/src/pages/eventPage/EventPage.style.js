@@ -25,12 +25,13 @@ export const Logo = styled.img`
   width: 4rem;
   height: 4.3rem;
   flex-shrink: 0;
+  margin-top: 5px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 30px;
-    height: 36px;
+    height: 35px;
     display: inline-block;
-    margin-top: 5px;
+    margin-top: 9px;
   }
 `;
 export const LogoDot = styled.img`
@@ -43,7 +44,7 @@ export const LogoDot = styled.img`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 0.7rem;
     height: 0.7rem;
-    margin-top: 3.72px;
+    // margin-top: 3.72px;
   }
 `;
 export const Title = styled.div`
@@ -142,11 +143,6 @@ export const Card = styled.div`
   }
 
   h3 {
-    font-size: 1.21rem;
-    font-weight: 500;
-  }
-
-  .time h3 {
     font-size: 1.39rem;
     font-weight: 500;
   }
@@ -202,9 +198,15 @@ export const CardContent = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-bottom: 116.11px;
     font-size: 1.5rem;
+
+    && .reservation h3 {
+      font-weight: 400;
+      font-size: 1.21rem;
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.8125rem;
   }
 `;
 
@@ -220,7 +222,7 @@ export const CardTitle = styled.h2`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 116px;
     margin-bottom: 44.77px;
-    font-size: 2.2rem;
+    font-size: 1.875rem;
   }
 `;
 export const CardTitle2 = styled.h2`
@@ -234,7 +236,7 @@ export const CardTitle2 = styled.h2`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 103px;
     margin-bottom: 39.71px;
-    font-size: 2.2rem;
+    font-size: 1.875rem;
   }
 `;
 export const CardTitle3 = styled.h2`
@@ -249,7 +251,7 @@ export const CardTitle3 = styled.h2`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-top: 74.47px;
     margin-bottom: 44.77px;
-    font-size: 2.2rem;
+    font-size: 1.875rem;
   }
 `;
 
@@ -269,14 +271,13 @@ export const CardList = styled.div`
 export const CardList2 = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  align-items: center;
+  align-items: flex-start;
   /* pc버전에서는 같은 선상*/
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 5rem;
     margin-bottom: 74.47px;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -364,14 +365,12 @@ export const CardItem2 = styled.div`
   .firstLine {
     display: flex;
     align-items: center;
-    margin: 0;
-    padding: 0;
     gap: 10.59px;
     line-height: 1.3;
     margin-bottom: 0.3rem;
   }
   h3 {
-    font-size: 1.16rem;
+    font-size: 1.158rem;
     font-weight: 500;
     margin: 0;
     line-height: 1.35;
@@ -379,30 +378,77 @@ export const CardItem2 = styled.div`
   p {
     margin: 0;
     font-weight: 400;
-    font-size: 1.16rem;
+    font-size: 1.13rem;
+    margin-left:28px;
+
     color: #ccc;
     line-height: 1.35;
   }
-
-  .CardItems22 p {
-    margin-left: 1.5rem;
+  .CardItems22 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
+   
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    .firstLine {
-      gap: 8px;
+    margin-left: 66px;
+
+    // .firstLine h3 {
+    //   font-size: 0.875rem;
+    //   font-weight: 500;
+    // }
+    // p {
+    //   font-size: 0.75rem;
+    //   font-weight: 400;
+    // }
+
+    // .CardItem22 {
+    //   display: grid;
+    //   grid-template-columns: 1.3rem 1fr;
+    //   align-items: start;
+    // }
+
+    // .CardItems22 > p {
+    //   grid-column: 2;
+
+    //   font-weight: 400;
+    //   font-size: 0.75rem;
+    //   color: #ccc;
+    //   line-height: 1.35;
+    // }
+
+    .CardItems22 {
+      display: block;
     }
+    .firstLine {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 0;
+    }
+    .firstLine img {
+      margin: 0;
+      display: block;
+      width: 0.7rem;
+      height: 0.7rem;
+    }
+
     .firstLine h3 {
       font-size: 0.875rem;
       font-weight: 500;
+      margin: 0;
     }
-    p {
+
+     && .first-topic-title {
+    padding-right:31px;
+  }
+    .CardItems22 > p {
+      padding-left: 19px;
+      text-indent: 0;
+      margin: 4px 0 0 0;
       font-size: 0.75rem;
       font-weight: 400;
     }
-
-    .CardItems22 p {
-      margin-left: 1.33rem; /* 모바일에서 거리 8px*/
-    }
-  }
+   
 `;
