@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/qna" element={<QnaPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/login/load" element={<LoginLoadPage />} />
+        //<Route path="/login/load" element={<LoginLoadPage />} />
         <Route path="/event-info" element={<EventPage />} />
         <Route path="/askmodal" element={<AskModal />} />
       </Routes>
