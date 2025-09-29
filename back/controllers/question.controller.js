@@ -225,45 +225,6 @@ export const deleteQuestion = async (req, res) => {
   }
 };
 
-/**
- * @swagger
- * /api/question/{id}:
- *   get:
- *     summary: 특정 질문 조회
- *     tags: [Questions]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: 조회 성공
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/QuestionResponse'
- *       404:
- *         description: 질문 없음
- *       500:
- *         description: 서버 오류
- */
-export const getQuestion = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const doc = await Question.findById(id);
-
-    if (!doc) {
-      return res.status(404).json({ success: false });
-    }
-
-    res.status(200).json({ success: true, question: doc });
-  } catch (err) {
-    console.log("getQuestion error 발생", err);
-    res.status(500).json({ success: false });
-  }
-};
 
 
 /**

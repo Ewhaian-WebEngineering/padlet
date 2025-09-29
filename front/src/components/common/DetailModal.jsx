@@ -1,8 +1,25 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import * as S from "./DetailModal.style";
 import x from "../../assets/common/x.png";
+import { fetchQuestionById } from "../../api/question";
 
-function DetailModal({ question, onClose }) {
+function DetailModal({ id, onClose }) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    if(!id) return;
+
+    (async()=>{
+      try{
+        const res=await fetchQuestionById(id);
+        setData(res);
+      }catch(error){
+        console.log(error);
+      }
+    })();
+
+  }, [id]);
+
   return (
     <S.Overlay onClick={onClose}>
       <S.ModalContainer onClick={(e) => e.stopPropagation()}>
@@ -15,18 +32,18 @@ function DetailModal({ question, onClose }) {
         {/* main 부분 */}
         <S.AskContent>
           {/* 카테고리(연사자 이름) */}
-          <S.Category>{question.speakerName}</S.Category>
+          <S.Category>{data.category}</S.Category>
 
-          {/* 작성자 */}
+          {/* 제목 */}
           <S.AskContentContainer>
-            <p className="title">작성자</p>
-            <div className="text-box">{question.writerName ?? "익명"}</div>
+            <p className="title">질문 제목</p>
+            <div className="text-box">{data.title}</div>
           </S.AskContentContainer>
 
           {/* 내용 */}
           <S.AskContentContainer>
             <p className="content">질문 내용</p>
-            <div className="text-box">{question.questionContent}</div>
+            <div className="text-box">{data.content}</div>
           </S.AskContentContainer>
         </S.AskContent>
       </S.ModalContainer>

@@ -162,7 +162,7 @@ export default function QnaPage() {
 
       {selectedQuestion && (
         <DetailModal
-          question={selectedQuestion}
+          id={selectedQuestion.id}
           onClose={() => setSelectedQuestion(null)}
         />
       )}
