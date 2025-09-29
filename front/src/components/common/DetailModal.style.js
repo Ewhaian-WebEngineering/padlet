@@ -93,6 +93,7 @@ export const Category = styled.button`
     padding: 0.4375rem 0.75rem 0.4375rem 1rem;
     justify-content: center;
     align-items: center;
+    text-align: center;
     gap: 0.375rem;
     flex-shrink: 0;
     border-radius: 62.4375rem;
@@ -128,6 +129,8 @@ export const AskContentContainer = styled.div`
     .text-box {
         align-items: center;
         width: 459.2px;
+        min-height: 38px;
+        line-height: 38px;
         height: auto;
         resize: none;
         border-radius: 16px;
@@ -152,6 +155,8 @@ export const AskContentContainer = styled.div`
             font-weight: 500px;
         }
         .text-box {
+            min-height: 17.5px;
+            line-height: 17.5px;
             width: 287px;
             height: auto;
             resize: none;
