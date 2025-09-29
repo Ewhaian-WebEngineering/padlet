@@ -12,8 +12,10 @@ import CreateQuestionButton from "../../components/qnaPage/CreateQuestionButton"
 import AskModal from "../../components/common/AskModal";
 import DetailModal from "../../components/common/DetailModal";
 import axiosInstance from "../../api/axiosInstance";
+import useUserStore from "../../store/useUserStore";
 
 export default function QnaPage() {
+  const {userName} = useUserStore();
   const [questions, setQuestions] = useState([]);
 
   const [open, setOpen] = useState(false);
@@ -132,7 +134,10 @@ export default function QnaPage() {
               첫 질문의 주인공이 되어보세요!
             </EmptyQuestionInfo>
           )}
-          <CreateQuestionButton onClick={() => setShowAskModal(true)} />
+          {/* userName이 있을 때만 버튼 렌더링 */}
+          {userName ? (
+            <CreateQuestionButton onClick={() => setShowAskModal(true)} />
+          ) : null}
         </QuestionContainer>
         {ShowAskModal && (
           <AskModal
