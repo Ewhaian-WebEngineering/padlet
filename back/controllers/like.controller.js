@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Question from "../models/question.model.js";
 
 /**
@@ -6,8 +7,6 @@ import Question from "../models/question.model.js";
  *   post:
  *     summary: 질문에 좋아요 추가
  *     tags: [Likes]
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -24,11 +23,6 @@ import Question from "../models/question.model.js";
  *     responses:
  *       200:
  *         description: 좋아요 추가 성공
- *         content:
- *           application/json:
- *             example:
- *               message: "좋아요가 추가되었습니다."
- *               likes: 3
  *       400:
  *         description: 이미 좋아요를 누른 경우
  *       404:
@@ -37,25 +31,29 @@ import Question from "../models/question.model.js";
  *         description: 서버 오류
  */
 export const postLike = async (req, res) => {
-    try {
-        const { questionId } = req.body;
-        const userId = req.user._id;
+  try {
+    const { questionId } = req.body;
+    const userId = req.session.user?.id;
 
-        const question = await Question.findById(questionId);
-        if (!question) return res.status(404).json({ message: "질문을 찾을 수 없습니다." });
+    if (!userId) return res.status(401).json({ message: "로그인이 필요합니다." });
 
-        if (question.likedBy.includes(userId)) {
-            return res.status(400).json({ message: "이미 좋아요를 눌렀습니다." });
-        }
+    const question = await Question.findById(questionId);
+    if (!question) return res.status(404).json({ message: "질문을 찾을 수 없습니다." });
 
-        question.likedBy.push(userId);
-        await question.save();
+    const userObjectId = new mongoose.Types.ObjectId(userId);
 
-        res.status(200).json({ message: "좋아요가 추가되었습니다.", likes: question.likedBy.length });
-    } catch (err) {
-        console.log("postLike error 발생", err);
-        res.status(500).json({ message: err.message });
+    if (question.likedBy.some(id => id.equals(userObjectId))) {
+      return res.status(400).json({ message: "이미 좋아요를 눌렀습니다." });
     }
+
+    question.likedBy.push(userObjectId);
+    await question.save();
+
+    res.status(200).json({ message: "좋아요가 추가되었습니다.", likes: question.likedBy.length });
+  } catch (err) {
+    console.log("postLike error 발생", err);
+    res.status(500).json({ message: err.message });
+  }
 };
 
 /**
@@ -64,8 +62,6 @@ export const postLike = async (req, res) => {
  *   delete:
  *     summary: 질문 좋아요 삭제
  *     tags: [Likes]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -76,30 +72,29 @@ export const postLike = async (req, res) => {
  *     responses:
  *       200:
  *         description: 좋아요 삭제 성공
- *         content:
- *           application/json:
- *             example:
- *               message: "좋아요가 삭제되었습니다."
- *               likes: 2
  *       404:
  *         description: 질문을 찾을 수 없음
  *       500:
  *         description: 서버 오류
  */
 export const deleteLike = async (req, res) => {
-    try {
-        const questionId = req.params.id;
-        const userId = req.user._id;
+  try {
+    const questionId = req.params.id;
+    const userId = req.session.user?.id;
 
-        const question = await Question.findById(questionId);
-        if (!question) return res.status(404).json({ message: "질문을 찾을 수 없습니다." });
+    if (!userId) return res.status(401).json({ message: "로그인이 필요합니다." });
 
-        question.likedBy = question.likedBy.filter(id => id.toString() !== userId.toString());
-        await question.save();
+    const question = await Question.findById(questionId);
+    if (!question) return res.status(404).json({ message: "질문을 찾을 수 없습니다." });
 
-        res.status(200).json({ message: "좋아요가 삭제되었습니다.", likes: question.likedBy.length });
-    } catch (err) {
-        console.log("deleteLike error 발생", err);
-        res.status(500).json({ message: err.message });
-    }
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+
+    question.likedBy = question.likedBy.filter(id => !id.equals(userObjectId));
+    await question.save();
+
+    res.status(200).json({ message: "좋아요가 삭제되었습니다.", likes: question.likedBy.length });
+  } catch (err) {
+    console.log("deleteLike error 발생", err);
+    res.status(500).json({ message: err.message });
+  }
 };
