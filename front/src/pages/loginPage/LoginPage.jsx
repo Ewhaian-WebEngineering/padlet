@@ -11,7 +11,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const handleKakaoLogin = async () => {
     const kakaoAuthUrl = await goKakaologinPage();
-    if(kakaoAuthUrl){
+    if (kakaoAuthUrl) {
       window.location.href = kakaoAuthUrl;
     }
   };

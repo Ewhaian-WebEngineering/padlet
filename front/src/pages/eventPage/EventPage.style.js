@@ -44,7 +44,7 @@ export const LogoDot = styled.img`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 0.7rem;
     height: 0.7rem;
-    margin-top: 3.72px;
+    // margin-top: 3.72px;
   }
 `;
 export const Title = styled.div`
@@ -271,7 +271,7 @@ export const CardList = styled.div`
 export const CardList2 = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   /* pc버전에서는 같은 선상*/
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: row;
@@ -379,30 +379,76 @@ export const CardItem2 = styled.div`
     margin: 0;
     font-weight: 400;
     font-size: 1.13rem;
+    margin-left:28px;
 
     color: #ccc;
     line-height: 1.35;
   }
-
-  .CardItems22 p {
-    margin-left: 1.7rem;
+  .CardItems22 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
+   
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    .firstLine {
-      gap: 8px;
+    margin-left: 66px;
+
+    // .firstLine h3 {
+    //   font-size: 0.875rem;
+    //   font-weight: 500;
+    // }
+    // p {
+    //   font-size: 0.75rem;
+    //   font-weight: 400;
+    // }
+
+    // .CardItem22 {
+    //   display: grid;
+    //   grid-template-columns: 1.3rem 1fr;
+    //   align-items: start;
+    // }
+
+    // .CardItems22 > p {
+    //   grid-column: 2;
+
+    //   font-weight: 400;
+    //   font-size: 0.75rem;
+    //   color: #ccc;
+    //   line-height: 1.35;
+    // }
+
+    .CardItems22 {
+      display: block;
     }
+    .firstLine {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 0;
+    }
+    .firstLine img {
+      margin: 0;
+      display: block;
+      width: 0.7rem;
+      height: 0.7rem;
+    }
+
     .firstLine h3 {
       font-size: 0.875rem;
       font-weight: 500;
+      margin: 0;
     }
-    p {
+
+     && .first-topic-title {
+    padding-right:31px;
+  }
+    .CardItems22 > p {
+      padding-left: 19px;
+      text-indent: 0;
+      margin: 4px 0 0 0;
       font-size: 0.75rem;
       font-weight: 400;
     }
-
-    .CardItems22 p {
-      margin-left: 1.33rem; /* 모바일에서 거리 8px*/
-    }
-  }
+   
 `;

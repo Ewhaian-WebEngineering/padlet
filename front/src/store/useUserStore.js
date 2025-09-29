@@ -19,13 +19,17 @@ const useUserStore = create((set) => ({
     } catch (err) {
       if (err.response?.status === 401) {
         // 세션 만료 → 로그인 필요
-        set({ userName: null, error: "세션이 만료되었습니다.", loading: false });
+        set({
+          userName: null,
+          error: "세션이 만료되었습니다.",
+          loading: false,
+        });
       } else {
         set({ error: err.message, loading: false });
       }
     }
   },
-  
+
   // 로그아웃
   logout: async () => {
     try {

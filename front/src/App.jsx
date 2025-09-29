@@ -34,7 +34,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/login/load" element={<LoginLoadPage />} />
         <Route path="/event-info" element={<EventPage />} />
-        <Route path="/askmodal" element={<AskModal />} />
+        {/* <Route path="/askmodal" element={<AskModal />} /> */}
       </Routes>
     </Router>
   );

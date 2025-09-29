@@ -17,6 +17,14 @@ const FRONTEND_URL = process.env.FRONTEND_URL;
 
 app.use(express.json());
 
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
+
 //로그인 세션을 위한 설정
 app.use(
   session({
@@ -30,14 +38,6 @@ app.use(
     },
   })
 );
-
-// ** 카카오로그인전 임시용 설정했습니다-삭제예정 **
-app.use((req, _res, next) => {
-  if (!req.session.user) {
-    req.session.user = { id: "68a18562ee91b0f182056433" };
-  }
-  next();
-});
 
 //swagger
 const options = {
@@ -59,14 +59,6 @@ const options = {
   apis: ["./controllers/*.js"],
 };
 
-app.use(
-  cors({
-    origin: FRONTEND_URL,
-    credentials: true,
-    optionsSuccessStatus: 200,
-  })
-);
-
 const specs = swaggerJSDoc(options);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
@@ -74,7 +66,6 @@ app.use("/api/question", questionRouter);
 app.use("/api/login", loginRoutes);
 app.use("/api/like", likeRoutes);
 app.use("/api/user", userinfoRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`서버 실행 중: http://localhost:${PORT}`);
