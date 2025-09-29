@@ -102,10 +102,13 @@ import Question from "../models/question.model.js";
  */
 export const postQuestion = async (req, res) => {
   try {
-    const question = new Question({ ...req.body, author: req.session.user?.id });
+    const question = new Question({
+      ...req.body,
+      author: req.session.user?.id,
+    });
     await question.save();
-
-    res.status(201).json({ success: true , question});
+    await question.populate("author", "username email");
+    res.status(201).json({ success: true, question });
   } catch (err) {
     console.log(err);
     res.status(500).json({ success: false });
@@ -154,19 +157,23 @@ export const editQuestion = async (req, res) => {
     const doc = await Question.findById(id);
 
     if (!doc) {
-      return res.status(404).json({ success: false, message: "질문이 존재하지 않습니다." });
+      return res
+        .status(404)
+        .json({ success: false, message: "질문이 존재하지 않습니다." });
     }
 
     if (!doc.author.equals(req.session.user?.id)) {
       return res.status(403).json({ success: false });
     }
 
-    const updated = await Question.findByIdAndUpdate(id, req.body, {new: true});
+    const updated = await Question.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
-    res.status(200).json({ success: true , question: updated});
+    res.status(200).json({ success: true, question: updated });
   } catch (err) {
-        console.log("editQuestion error 발생", err);
-        res.status(500).json({ success: false });
+    console.log("editQuestion error 발생", err);
+    res.status(500).json({ success: false });
   }
 };
 
@@ -209,7 +216,9 @@ export const deleteQuestion = async (req, res) => {
     const doc = await Question.findById(id);
 
     if (!doc) {
-      return res.status(404).json({ success: false, message: "질문이 존재하지 않습니다." });
+      return res
+        .status(404)
+        .json({ success: false, message: "질문이 존재하지 않습니다." });
     }
 
     if (!doc.author.equals(req.session.user?.id)) {
@@ -218,49 +227,9 @@ export const deleteQuestion = async (req, res) => {
 
     await Question.findByIdAndDelete(id);
 
-    res.status(200).json({ success: true , id});
+    res.status(200).json({ success: true, id });
   } catch (err) {
-        console.log("deleteQuestion error 발생", err);
-        res.status(500).json({ success: false });
-  }
-};
-
-/**
- * @swagger
- * /api/question/{id}:
- *   get:
- *     summary: 특정 질문 조회
- *     tags: [Questions]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: 조회 성공
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/QuestionResponse'
- *       404:
- *         description: 질문 없음
- *       500:
- *         description: 서버 오류
- */
-export const getQuestion = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const doc = await Question.findById(id);
-
-    if (!doc) {
-      return res.status(404).json({ success: false });
-    }
-
-    res.status(200).json({ success: true, question: doc });
-  } catch (err) {
-    console.log("getQuestion error 발생", err);
+    console.log("deleteQuestion error 발생", err);
     res.status(500).json({ success: false });
   }
 };
@@ -290,7 +259,7 @@ export const getQuestion = async (req, res) => {
  *                  success:
  *                    type: boolean
  *                    example: true
- *                  question: 
+ *                  question:
  *                    _id:
  *                      type: string
  *                    category:
@@ -304,13 +273,15 @@ export const getQuestion = async (req, res) => {
  *       500:
  *         description: 서버 오류
  */
-export const getQuestionDetail = async(req, res) => {
+export const getQuestionDetail = async (req, res) => {
   try {
-    const{ id } = req.params;
+    const { id } = req.params;
     // category, title, content만 가져오기
-    const question = await Question.findById(id, 'category title content');
+    const question = await Question.findById(id, "category title content");
     if (!question) {
-      return res.status(404).json({ success: false, message: "질문이 존재하지 않습니다." });
+      return res
+        .status(404)
+        .json({ success: false, message: "질문이 존재하지 않습니다." });
     }
 
     res.status(200).json({ success: true, question });
@@ -415,10 +386,10 @@ export const getAllQuestion = async (req, res) => {
 
     // 정렬 기준 적용
     if (order === "likes") {
-      // 좋아요 개수 순 정렬 
+      // 좋아요 개수 순 정렬
       questions.sort((a, b) => b.likes - a.likes);
     } else {
-      // 기본: 최신순 
+      // 기본: 최신순
       questions.sort((a, b) => String(b._id).localeCompare(String(a._id)));
     }
 

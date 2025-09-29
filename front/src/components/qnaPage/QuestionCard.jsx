@@ -17,16 +17,33 @@ export default function QuestionCard({
   onDeleted
 }) {
   const [hovered, setHovered] = useState(false);
+  const [isLiked, setIsLiked] = useState(initialLiked);
 
-  const handleDelete = async (e) => {
-    e.stopPropagation(); 
+  const handleLikeToggle = async (e) => {
+    e.stopPropagation();
+
     try {
-      await deleteQuestionApi(id); 
-      if (onDeleted) onDeleted(id);
-    } catch (error) {
-      alert("질문 삭제에 실패했습니다");
+      if (isLiked) {
+        // 좋아요 삭제
+        await axios.delete(`http://localhost:5000/api/like/${questionId}`, {
+          withCredentials: true,
+        });
+        setIsLiked(false);
+      } else {
+        // 좋아요 추가
+        await axios.post(
+          "http://localhost:5000/api/like",
+          { questionId },
+          { withCredentials: true }
+        );
+        setIsLiked(true);
+      }
+    } catch (err) {
+      console.error(err.response?.data?.message || err.message);
+      alert(err.response?.data?.message || "좋아요 처리 중 오류가 발생했습니다.");
     }
   };
+
   return (
     <S.CardContainer>
       <S.ContentContainer>

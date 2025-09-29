@@ -51,7 +51,7 @@ function AskModal({ onClose, onCreated }) {
     };
 
     try {
-      const response = await axiosInstance.post("/api/question", body);
+      const response = await axiosInstance.post("/question", body);
       if (response?.data?.success) {
         const created = response?.data?.question;
         onCreated(created);
