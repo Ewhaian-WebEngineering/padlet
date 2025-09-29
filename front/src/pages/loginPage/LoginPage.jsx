@@ -4,12 +4,12 @@ import Logo from "../../assets/common/logo.svg";
 import KakaoLogo from "../../assets/loginPage/KakaoLogo.svg";
 import ImageLeft from "../../assets/loginPage/imgLeft.svg";
 import ImageRight from "../../assets/loginPage/imgRight.svg";
-import { goKakaologinPage } from "../../api/auth"
+import { goKakaologinPage } from "../../api/auth";
 
 export default function LoginPage() {
   const handleKakaoLogin = async () => {
     const kakaoAuthUrl = await goKakaologinPage();
-    if(kakaoAuthUrl){
+    if (kakaoAuthUrl) {
       window.location.href = kakaoAuthUrl;
     }
   };
@@ -23,7 +23,7 @@ export default function LoginPage() {
         <S.AbsoluteImage className="right" src={ImageRight} />
       </S.Title>
       <S.Sub>로그인하고 실시간으로 궁금한 점을 질문하세요.</S.Sub>
-      <S.Button className="kakao">
+      <S.Button className="kakao" onClick={handleKakaoLogin}>
         <img src={KakaoLogo} alt="카카오 로고" />
         카카오로 3초만에 시작하기
       </S.Button>

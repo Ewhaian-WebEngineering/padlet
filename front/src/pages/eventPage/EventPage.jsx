@@ -92,7 +92,7 @@ function IntroPage() {
                     <S.LogoDot src={logoDott} alt="logo" />
                     <h3>{eventInfo.speaker1}</h3>
                   </div>
-                  <p>{eventInfo.title1}</p>
+                  <p className="first-topic-title">{eventInfo.title1}</p>
                 </div>
               </S.CardItem2>
 
