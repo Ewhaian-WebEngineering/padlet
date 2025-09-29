@@ -3,31 +3,21 @@ import * as S from "./DetailModal.style";
 import x from "../../assets/common/x.png";
 import { fetchQuestionById } from "../../api/question";
 
-function DetailModal({ question, onClose }) {
-  const [data, setData] = useState(question);
-  const id = question.id || question._id; 
+function DetailModal({ id, onClose }) {
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (!id) return;
-    //언마운트 됬을때 setData하는 상황을 방지하는 플래그
-    let ignore = false;
+    if(!id) return;
 
-    (async () => {
-      try {
-        // 백그라운드로 최신 상세 호출 
-        const fresh = await fetchQuestionById(id);
-        if (!ignore && fresh) {
-          // 목록에서 받은 데이터와 서버 상세를 합쳐서 상태 업데이트
-          setData((prev) => ({ ...prev, ...fresh }));
-        }
-      } catch (error) {
-        console.log( error?.message);
+    (async()=>{
+      try{
+        const res=await fetchQuestionById(id);
+        setData(res);
+      }catch(error){
+        console.log(error);
       }
     })();
 
-    return () => {
-      ignore = true;
-    };
   }, [id]);
 
   return (
@@ -42,18 +32,18 @@ function DetailModal({ question, onClose }) {
         {/* main 부분 */}
         <S.AskContent>
           {/* 카테고리(연사자 이름) */}
-          <S.Category>{data.speakerName}</S.Category>
+          <S.Category>{data.category}</S.Category>
 
-          {/* 작성자 */}
+          {/* 제목 */}
           <S.AskContentContainer>
-            <p className="title">작성자</p>
-            <div className="text-box">{data.writerName ?? "익명"}</div>
+            <p className="title">질문 제목</p>
+            <div className="text-box">{data.title}</div>
           </S.AskContentContainer>
 
           {/* 내용 */}
           <S.AskContentContainer>
             <p className="content">질문 내용</p>
-            <div className="text-box">{data.questionContent}</div>
+            <div className="text-box">{data.content}</div>
           </S.AskContentContainer>
         </S.AskContent>
       </S.ModalContainer>
