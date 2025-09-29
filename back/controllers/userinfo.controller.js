@@ -19,7 +19,11 @@ import User from "../models/user.model.js";
  *                   type: string
  *                   description: "사용자 이름"
  *                   example: "김이화"
- *       404:
+ *                 id:
+ *                   type: Mongodb ObjectId
+ *                   description: 사용자 아이디
+ *                   example: "66f2b1c1e5a4c8f5d9b12345"
+ *       401:
  *         description: "권한 없음"
  *         content:
  *           application/json:
@@ -44,19 +48,16 @@ export const getName = async (req, res) => {
     try {
         const userId = req.session.user?.id;
 
-        //로그인이 안되어있으면 404
+        //로그인이 안되어있으면 401
         //로그인이 되어있으면 이름 찾아서 반환
         if (!userId) {
-            return res.status(404).json({ message:"getName: 로그인안되어있음" });
+            return res.status(401).json({ message:"getName: 로그인안되어있음" });
         }
 
-        const user = await User.findById(userId).select("username");;
-        
-        if (!user) {
-            return res.json({ username : "" });
-        }
+        const user = await User.findById(userId).select("username");
 
-        return res.json({ username: user.username });
+        //userId 랑 이름 같이 반환
+        return res.json({ username: user.username, id: user._id });
     }
     catch (err) {
         console.error("getName error:", err);
