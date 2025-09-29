@@ -16,33 +16,7 @@ export default function QuestionCard({
   onDeleted
 }) {
   const [hovered, setHovered] = useState(false);
-  const [isLiked, setIsLiked] = useState(initialLiked);
-
-  const handleLikeToggle = async (e) => {
-    e.stopPropagation();
-
-    try {
-      if (isLiked) {
-        // 좋아요 삭제
-        await axios.delete(`http://localhost:5000/api/like/${questionId}`, {
-          withCredentials: true,
-        });
-        setIsLiked(false);
-      } else {
-        // 좋아요 추가
-        await axios.post(
-          "http://localhost:5000/api/like",
-          { questionId },
-          { withCredentials: true }
-        );
-        setIsLiked(true);
-      }
-    } catch (err) {
-      console.error(err.response?.data?.message || err.message);
-      alert(err.response?.data?.message || "좋아요 처리 중 오류가 발생했습니다.");
-    }
-  };
-
+  
   return (
     <S.CardContainer>
       <S.ContentContainer>
