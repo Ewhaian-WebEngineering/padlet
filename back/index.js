@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import { connectDB } from "./lib/db.js";
 import questionRouter from "./routes/question.route.js";
 import loginRoutes from "./routes/login.route.js";
+import likeRoutes from "./routes/like.route.js";
 import userinfoRoutes from "./routes/userinfo.route.js";
 
 dotenv.config();
@@ -71,6 +72,7 @@ const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/question", questionRouter);
 app.use("/api/login", loginRoutes);
+app.use("/api/like", likeRoutes);
 app.use("/api/user", userinfoRoutes);
 
 
