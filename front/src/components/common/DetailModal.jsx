@@ -29,22 +29,26 @@ function DetailModal({ id, onClose }) {
           <S.XLogo src={x} onClick={onClose} />
         </S.AskHeader>
 
-        {/* main 부분 */}
+         {/* main 부분 */}
         <S.AskContent>
-          {/* 카테고리(연사자 이름) */}
-          <S.Category>{data.category}</S.Category>
+          {data && (
+            <>
+              {/* 카테고리(연사자 이름) */}
+              <S.Category>{data.category}</S.Category>
 
-          {/* 제목 */}
-          <S.AskContentContainer>
-            <p className="title">질문 제목</p>
-            <div className="text-box">{data.title}</div>
-          </S.AskContentContainer>
+              {/* 제목 */}
+              <S.AskContentContainer>
+                <p className="title">질문 제목</p>
+                <div className="text-box">{data.title}</div>
+              </S.AskContentContainer>
 
-          {/* 내용 */}
-          <S.AskContentContainer>
-            <p className="content">질문 내용</p>
-            <div className="text-box">{data.content}</div>
-          </S.AskContentContainer>
+              {/* 내용 */}
+              <S.AskContentContainer>
+                <p className="content">질문 내용</p>
+                <div className="text-box">{data.content}</div>
+              </S.AskContentContainer>
+            </>
+          )}
         </S.AskContent>
       </S.ModalContainer>
     </S.Overlay>

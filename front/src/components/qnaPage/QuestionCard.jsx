@@ -6,14 +6,13 @@ import EditIcon from "../../assets/qnaPage/Edit.svg";
 import { useState } from "react";
 
 export default function QuestionCard({
-  id,
+
   speakerName,
   writerName,
   questionContent,
   likeCount,
   isLiked,
   onClick,
-  onDeleted
 }) {
   const [hovered, setHovered] = useState(false);
   
@@ -44,7 +43,7 @@ export default function QuestionCard({
         </S.LikeContainer>
         {/* zustand에서 userName === writerName으로 버튼 숨김 구현 */}
         <S.UDBtnContainer>
-          <S.UDBtn onClick={(e) => { e.stopPropagation(); handleDelete(e); }}>
+          <S.UDBtn onClick={(e) => { e.stopPropagation();  }}>
             <img src={DeleteIcon} alt="delete button" />
           </S.UDBtn>
           <S.UDBtn onClick={(e) => e.stopPropagation()}>
