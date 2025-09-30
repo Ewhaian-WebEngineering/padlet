@@ -15,7 +15,7 @@ import axiosInstance from "../../api/axiosInstance";
 import useUserStore from "../../store/useUserStore";
 
 export default function QnaPage() {
-  const {userName} = useUserStore();
+  const { userName } = useUserStore();
   const [questions, setQuestions] = useState([]);
 
   const [open, setOpen] = useState(false);
@@ -36,14 +36,12 @@ export default function QnaPage() {
     writerName: q.anonymity ? null : q.author?.username ?? "작성자",
     questionContent: q.content,
     likeCount:
-      typeof q.likesCount === "number"
-        ? q.likesCount
+      typeof q.likes === "number"
+        ? q.likes
         : Array.isArray(q.likedBy)
         ? q.likedBy.length
-        : typeof q.likes === "number"
-        ? q.likes
-        : q.likeCount ?? 0,
-    isLiked: q.isLiked,
+        : 0,
+    isLiked: q.liked ?? q.isLiked ?? false,
     createdAt: q.createdAt,
   });
 
@@ -118,14 +116,18 @@ export default function QnaPage() {
               <div key={q.id} onClick={() => setSelectedQuestion(q)}>
                 <QuestionCard
                   key={q.id}
-                  id={q.id} 
+                  id={q.id}
                   speakerName={q.speakerName}
                   writerName={q.writerName}
                   questionContent={q.questionContent}
                   likeCount={q.likeCount}
                   isLiked={q.isLiked}
                   onClick={() => setSelectedQuestion(q)}
-                  onDeleted={(id) => setQuestions((prev) => prev.filter((item) => item.id !== id))} //해당 id를 가진 질문이 삭제
+                  onDeleted={(id) =>
+                    setQuestions((prev) =>
+                      prev.filter((item) => item.id !== id)
+                    )
+                  } //해당 id를 가진 질문이 삭제
                 />
               </div>
             ))

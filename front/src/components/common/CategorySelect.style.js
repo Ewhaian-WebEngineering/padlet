@@ -3,12 +3,12 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   position: relative;
-  width: 9rem;
-  height: 1.7rem;
-  padding: 0.4375rem 0.75rem 0.4375rem 1rem;
+  width: 7.8rem;
+  height: 1.5rem;
+  padding: 0.35rem 0.6rem 0.35rem 0.8rem;
   justify-content: center;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.28rem;
   flex-shrink: 0;
   border-radius: 62.4375rem;
   border: 1px solid rgba(55, 255, 62, 0.5);
@@ -31,11 +31,11 @@ export const Container = styled.div`
 export const FilterTitle = styled.div`
   color: var(--white);
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  letter-spacing: -0.03375rem;
+  letter-spacing: -0.02rem;
   margin: 0.1rem;
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.75rem;
@@ -48,8 +48,8 @@ export const Arrow = styled.img`
 `;
 
 export const ArrowContainer = styled.div`
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1rem;
+  height: 1rem;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
@@ -62,11 +62,11 @@ export const PortalDropdown = styled.div`
   background: rgba(255, 255, 255, 0.2);
   border-radius: 0.9375rem;
   z-index: 1000;
-  padding: 0.6rem;
+  padding: 0.45rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.45rem;
   margin-top: 0.3rem;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
