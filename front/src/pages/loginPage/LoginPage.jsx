@@ -6,7 +6,6 @@ import KakaoLogo from "../../assets/loginPage/KakaoLogo.svg";
 import ImageLeft from "../../assets/loginPage/imgLeft.svg";
 import ImageRight from "../../assets/loginPage/imgRight.svg";
 import { goKakaologinPage } from "../../api/auth"
-import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -17,7 +16,6 @@ export default function LoginPage() {
     }
   };
 
-  const navigate = useNavigate();
   
   return (
     <S.Wrapper>
@@ -32,7 +30,7 @@ export default function LoginPage() {
         <img src={KakaoLogo} alt="카카오 로고" />
         카카오로 3초만에 시작하기
       </S.Button>
-      <S.Button className="info" onClick={() => navigate("/event-info")} onClick={()=>{navigate("/event-info")}}>
+      <S.Button className="info" onClick={() => navigate("/event-info")}>
         <img src={Logo} alt="행사 로고" />
         행사소개 바로보기
       </S.Button>
