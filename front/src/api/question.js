@@ -9,3 +9,13 @@ export const fetchQuestionById=async(id)=>{
         throw error;
     }
 }
+
+export const deleteQuestion = async (id) => {
+    try {
+        const res = await axiosInstance.delete(`/question/${id}`);
+        return res.data.id; //id가 넘어옴
+    } catch (error) {
+        console.error("질문 삭제 api 실패:", error);
+        throw error;
+    }
+}

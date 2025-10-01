@@ -4,15 +4,17 @@ import EmptyLikeIcon from "../../assets/qnaPage/EmptyLike.svg";
 import DeleteIcon from "../../assets/qnaPage/Trash.svg";
 import EditIcon from "../../assets/qnaPage/Edit.svg";
 import { useState } from "react";
+import { deleteQuestion } from "../../api/question.js";
 
 export default function QuestionCard({
-
+  id,
   speakerName,
   writerName,
   questionContent,
   likeCount,
   isLiked,
   onClick,
+  onDeleted
 }) {
   const [hovered, setHovered] = useState(false);
   
@@ -43,7 +45,17 @@ export default function QuestionCard({
         </S.LikeContainer>
         {/* zustand에서 userName === writerName으로 버튼 숨김 구현 */}
         <S.UDBtnContainer>
-          <S.UDBtn onClick={(e) => { e.stopPropagation();  }}>
+          <S.UDBtn onClick={async(e) => {
+            e.stopPropagation();
+            try {
+              await deleteQuestion(id);   // 삭제 API 호출
+              if (onDeleted) {
+                onDeleted(id); // 부모 상태 업데이트
+              }
+            } catch (error) {
+              alert("질문 삭제에 실패했습니다.");
+            }
+          }}>
             <img src={DeleteIcon} alt="delete button" />
           </S.UDBtn>
           <S.UDBtn onClick={(e) => e.stopPropagation()}>
@@ -52,5 +64,6 @@ export default function QuestionCard({
         </S.UDBtnContainer>
       </S.BtnContainer>
     </S.CardContainer>
+
   );
 }
