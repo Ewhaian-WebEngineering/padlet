@@ -69,70 +69,73 @@ function AskModal({ onClose, onCreated }) {
     <div>
       <S.Overlay>
         <S.ModalContainer>
-          {/* Header */}
-          <S.AskHeader>
-            <p className="font-title">새 질문 등록하기</p>
-            <S.XLogo src={x} onClick={onClose} />
-          </S.AskHeader>
+          <S.ModalScrollArea>
+            {/* Header */}
+            <S.AskHeader>
+              <p className="font-title">새 질문 등록하기</p>
+              <S.XLogo src={x} onClick={onClose} />
+            </S.AskHeader>
 
-          {/* main 부분 */}
-          <S.AskContent>
-            {/* 카테고리 선택 */}
-            <S.CategotyFilterStyle>
-              <CategorySelect
-                categories={categories}
-                visible={isVisible}
-                selectedCategory={selectedCategory}
-                onToggle={() => setOpen(!open)}
-                onSelect={handleSelect}
-                onMouseEnter={() => setHovered(true)}
-                onMouseLeave={() => setHovered(false)}
+            {/* main 부분 */}
+
+            <S.AskContent>
+              {/* 카테고리 선택 */}
+              <S.CategotyFilterStyle>
+                <CategorySelect
+                  categories={categories}
+                  visible={isVisible}
+                  selectedCategory={selectedCategory}
+                  onToggle={() => setOpen(!open)}
+                  onSelect={handleSelect}
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
+                />
+              </S.CategotyFilterStyle>
+              {/* 제목 */}
+              <S.AskTitleContainer>
+                <p className="title">
+                  질문 제목 <span className="req">*</span>{" "}
+                </p>
+                <input
+                  type="text"
+                  placeholder="제목을 입력하세요."
+                  value={Title}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
+                />
+              </S.AskTitleContainer>
+              {/* 내용 */}
+              <S.AskContentContainer>
+                <p className="content">
+                  질문 내용 <span className="req">*</span>
+                </p>
+                <textarea
+                  placeholder="내용을 입력하세요."
+                  value={Content}
+                  onChange={(e) => {
+                    setContent(e.target.value);
+                  }}
+                />
+              </S.AskContentContainer>
+            </S.AskContent>
+
+            {/* 버튼 그룹 */}
+            <S.ButtonGroup>
+              <RegisterAnoButton
+                onClick={() => {
+                  setAnonymity((prev) => !prev);
+                }}
+                active={Anonymity}
               />
-            </S.CategotyFilterStyle>
-            {/* 제목 */}
-            <S.AskTitleContainer>
-              <p className="title">
-                질문 제목 <span className="req">*</span>{" "}
-              </p>
-              <input
-                type="text"
-                placeholder="제목을 입력하세요."
-                value={Title}
-                onChange={(e) => {
-                  setTitle(e.target.value);
+              <SubmitButton
+                type="submit"
+                onClick={(e) => {
+                  handleModalSubmit(e);
                 }}
               />
-            </S.AskTitleContainer>
-            {/* 내용 */}
-            <S.AskContentContainer>
-              <p className="content">
-                질문 내용 <span className="req">*</span>
-              </p>
-              <textarea
-                placeholder="내용을 입력하세요."
-                value={Content}
-                onChange={(e) => {
-                  setContent(e.target.value);
-                }}
-              />
-            </S.AskContentContainer>
-          </S.AskContent>
-
-          {/* 버튼 그룹 */}
-          <S.ButtonGroup>
-            <RegisterAnoButton
-              onClick={() => {
-                setAnonymity((prev) => !prev);
-              }}
-              active={Anonymity}
-            />
-            <SubmitButton
-              type="submit"
-              onClick={(e) => {
-                handleModalSubmit(e);
-              }}
-            />
-          </S.ButtonGroup>
+            </S.ButtonGroup>
+          </S.ModalScrollArea>
         </S.ModalContainer>
       </S.Overlay>
     </div>

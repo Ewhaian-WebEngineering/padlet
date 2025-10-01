@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const RegButtonContainer = styled.button`
   all: unset;
   cursor: pointer;
-  width: 217px;
-  height: 51.2px;
+  width: 190px;
+  height: 44px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -14,7 +14,7 @@ export const RegButtonContainer = styled.button`
     $active ? " rgba(55, 255, 62, 0.5)" : "transparent"};
 
   p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   font-weight: 400;
@@ -43,9 +43,9 @@ export const RegButtonContainer = styled.button`
   }
 `;
 export const Logo = styled.img`
-  width: 22.4px;
-  height: 22.4px;
-  margin-left: 19.2px;
+  width: 18px;
+  height: 18px;
+  margin-left: 14px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 14px;

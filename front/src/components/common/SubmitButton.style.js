@@ -4,14 +4,14 @@ export const ButtonContainer = styled.button`
   all: unset;
   cursor: pointer;
 
-  max-width: 107.4px;
-  max-height: 46.4px;
-  border-radius: 12.88px;
+  max-width: 92px;
+  max-height: 38px;
+  border-radius: 11px;
 
-  padding: 9.6px 19.2px;
+  padding: 8px 16px;
 
   p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #37ff3e;
   }
