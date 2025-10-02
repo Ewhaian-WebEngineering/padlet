@@ -13,10 +13,15 @@ export const CardContainer = styled.div`
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.1),
     inset 0 0 6px 3px rgba(255, 255, 255, 0.15);
+
+  &:hover{
+    background: rgba(255, 255, 255, 0.2);
+  }
   
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 9.5rem;

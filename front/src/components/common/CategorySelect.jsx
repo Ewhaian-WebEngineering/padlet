@@ -55,6 +55,7 @@ export default function CategorySelect({
         position.width > 0 &&
         createPortal(
           <S.PortalDropdown
+          id="category-dropdown"
             style={{
               top: position.top,
               left: position.left,

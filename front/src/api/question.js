@@ -19,3 +19,13 @@ export const deleteQuestion = async (id) => {
         throw error;
     }
 }
+
+export const editQuestion = async (id, data) => {
+    try {
+        const res = await axiosInstance.put(`/question/${id}`, data);
+        return res;
+    } catch (error) {
+        console.error("질문 업데이트 실패", error);
+        throw error;
+    }
+}

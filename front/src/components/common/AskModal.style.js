@@ -8,7 +8,7 @@ export const Overlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
+   background: rgba(0,0,0,0.5);
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     position: fixed;
     inset: 0;
