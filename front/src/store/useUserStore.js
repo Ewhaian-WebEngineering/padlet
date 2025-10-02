@@ -3,6 +3,7 @@ import axiosInstance from "../api/axiosInstance";
 
 const useUserStore = create((set) => ({
   userName: undefined,
+  userId: undefined,
   loading: false,
   error: null,
 
@@ -12,10 +13,10 @@ const useUserStore = create((set) => ({
     try {
       const response = await axiosInstance.get("/user/name");
       if(response.data.username === ""){
-        set({ userName: null, error: "세션이 만료되었습니다.", loading: false });
+        set({ userName: null, userId: null, error: "세션이 만료되었습니다.", loading: false });
         return;
       }
-      set({ userName: response.data.username, loading: false });
+      set({ userName: response.data.username, userId: response.data.id, loading: false });
     } catch (err) {
       if (err.response?.status === 401) {
         // 세션 만료 → 로그인 필요
@@ -33,12 +34,11 @@ const useUserStore = create((set) => ({
   // 로그아웃
   logout: async () => {
     try {
-      console.log("ih");
       await axiosInstance.post("/login/logout", {});
     } catch (err) {
       console.error("로그아웃 요청 실패:", err);
     }
-    set({ userName: null });
+    set({ userName: null, userId: null });
   },
 }));
 
