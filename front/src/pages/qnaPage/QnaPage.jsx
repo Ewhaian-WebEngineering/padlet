@@ -44,6 +44,7 @@ export default function QnaPage() {
         : 0,
     isLiked: q.liked ?? q.isLiked ?? false,
     createdAt: q.createdAt,
+    writerId: q.author?._id,
   });
 
   //전체질문 불러오기(selectedCategory,order기준으로)
@@ -123,6 +124,7 @@ export default function QnaPage() {
                   questionContent={q.questionContent}
                   likeCount={q.likeCount}
                   isLiked={q.isLiked}
+                  writerId={q.writerId}
                   onClick={() => setSelectedQuestion(q)}
                   onDeleted={(id) =>
                     setQuestions((prev) =>
