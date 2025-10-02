@@ -13,6 +13,7 @@ import AskModal from "../../components/common/AskModal";
 import DetailModal from "../../components/common/DetailModal";
 import axiosInstance from "../../api/axiosInstance";
 import useUserStore from "../../store/useUserStore";
+import { QUESTION_CATEGORIES_WITH_ALL } from "../../data/categories";
 
 export default function QnaPage() {
   const { userName } = useUserStore();
@@ -27,7 +28,7 @@ export default function QnaPage() {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const isVisible = open || hovered;
 
-  const categories = ["전체", "카테고리1", "카테고리2", "카테고리3"];
+  const categories = QUESTION_CATEGORIES_WITH_ALL;
   const [ShowAskModal, setShowAskModal] = useState(false);
 
   const toCard = (q) => ({
@@ -128,6 +129,7 @@ export default function QnaPage() {
                       prev.filter((item) => item.id !== id)
                     )
                   } //해당 id를 가진 질문이 삭제
+                  onUpdated={handleCreated}
                 />
               </div>
             ))

@@ -1,10 +1,10 @@
 import React from "react";
 import * as S from "./SubmitButton.style";
 
-function SubmitButton({ onClick, type = "button" }) {
+function SubmitButton({ onClick, type = "button", label="제출하기" }) {
   return (
     <S.ButtonContainer type={type} onClick={onClick}>
-      <p>제출하기</p>
+      <p>{label}</p>
     </S.ButtonContainer>
   );
 }

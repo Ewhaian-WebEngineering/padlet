@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useState, useMemo } from "react";
 import * as S from "./AskModal.style";
 import CategorySelect from "./CategorySelect";
@@ -8,8 +8,10 @@ import x from "../../assets/common/x.svg";
 import axiosInstance from "../../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { QUESTION_CATEGORIES } from "../../data/categories";
+import { editQuestion, fetchQuestionById } from "../../api/question";
 
-function AskModal({ onClose, onCreated }) {
+function EditAskModal({ onClose, onCreated, id }) {
+  const modalRef = useRef(null);
   //드롭다운 항목
   const categories = QUESTION_CATEGORIES;
 
@@ -30,50 +32,79 @@ function AskModal({ onClose, onCreated }) {
     setselectedCategory(item);
     setOpen(false);
   };
+
+
   //익명여부
   const [Anonymity, setAnonymity] = useState(false);
-
-  //
-  const handleModalSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!Title || !Content) {
-      return alert("제목과 내용을 모두 입력하세요");
-    }
-    if (!selectedCategory) {
-      return alert("카테고리를 선택해주세요");
-    }
-
-    const body = {
-      title: Title,
-      content: Content,
-      category: selectedCategory,
-      anonymity: Anonymity,
+  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // modalRef 또는 드롭다운 외부 클릭이면 닫기
+      const dropdownEl = document.getElementById("category-dropdown");
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target) &&
+        !(dropdownEl && dropdownEl.contains(event.target))
+      ) {
+        onClose();
+      }
     };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [onClose]);
+
+  // id 있을 때 미리 질문 내용 불러오기
+  useEffect(() => {
+    if(!id) return;
+
+    const loadQuestion = async () => {
+      try {
+        const question = await fetchQuestionById(id);
+        setTitle(question.title || "");
+        setContent(question.content || "");
+        setselectedCategory(question.category || null);
+        setAnonymity(question.anonymity || false);
+      } catch (error) {
+        console.error("질문 불러오기 실패", error);
+      }
+    };
+    loadQuestion();
+  }, [id]);
+
+  // 질문 업데이트
+  const handleSubmit = async () => {
+    if (!Title.trim() || !Content.trim() || !selectedCategory) {
+      alert("제목, 내용, 카테고리를 모두 입력해주세요.");
+      return;
+    }
 
     try {
-      const response = await axiosInstance.post("/question", body);
-      if (response?.data?.success) {
-        const created = response?.data?.question;
-        onCreated(created);
-        alert("질문등록이 완료되었습니다! ");
-        onClose();
-      } else {
-        alert("질문작성에 실패했습니다 :( ");
-      }
-    } catch (err) {
-      alert(err || "에러가 발생했습니다");
+      await editQuestion(id, {
+        title: Title,
+        content: Content,
+        category: selectedCategory,
+        anonymity: Anonymity,
+      });
+      onCreated(); // 부모에서 질문 목록 다시 로드
+      onClose(); // 모달 닫기
+    } catch (error) {
+      console.error("질문 수정 실패", error);
+      alert("질문 수정 중 오류가 발생했습니다.");
     }
   };
-
   return (
     <div>
-      <S.Overlay>
-        <S.ModalContainer>
+      <S.Overlay onClick={()=>{
+        onClose();
+      }}>
+        <S.ModalContainer
+        ref={modalRef}
+        onClick={(e)=> e.stopPropagation()}
+        >
           <S.ModalScrollArea>
             {/* Header */}
             <S.AskHeader>
-              <p className="font-title">새 질문 등록하기</p>
+              <p className="font-title">질문 수정하기</p>
               <S.XLogo src={x} onClick={onClose} />
             </S.AskHeader>
 
@@ -81,7 +112,7 @@ function AskModal({ onClose, onCreated }) {
 
             <S.AskContent>
               {/* 카테고리 선택 */}
-              <S.CategotyFilterStyle>
+              <S.CategotyFilterStyle onClick={(e)=> e.stopPropagation()}>
                 <CategorySelect
                   categories={categories}
                   visible={isVisible}
@@ -90,6 +121,7 @@ function AskModal({ onClose, onCreated }) {
                   onSelect={handleSelect}
                   onMouseEnter={() => setHovered(true)}
                   onMouseLeave={() => setHovered(false)}
+                  dropdownId="category-dropdown"
                 />
               </S.CategotyFilterStyle>
               {/* 제목 */}
@@ -131,9 +163,8 @@ function AskModal({ onClose, onCreated }) {
               />
               <SubmitButton
                 type="submit"
-                onClick={(e) => {
-                  handleModalSubmit(e);
-                }}
+                label="수정하기"
+                onClick={handleSubmit}
               />
             </S.ButtonGroup>
           </S.ModalScrollArea>
@@ -143,4 +174,4 @@ function AskModal({ onClose, onCreated }) {
   );
 }
 
-export default AskModal;
+export default EditAskModal;
