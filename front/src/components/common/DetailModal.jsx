@@ -7,8 +7,15 @@ function DetailModal({ id, onClose }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    if(!id) return;
-
+    if(!id) {
+      // 임시 디자인 확인용 데이터
+      setData({
+        category: "테스트님",
+        title: "임시 제목입니다",
+        content: "여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테스트용입니다.여기는 내용 테여기는 내용 테스트용입니다.내용 테스트용입니다.내용 테스트용입니다.테스트용입니다.테스트용입니다."
+      });
+      return;
+    }
     (async()=>{
       try{
         const res=await fetchQuestionById(id);
@@ -25,7 +32,7 @@ function DetailModal({ id, onClose }) {
       <S.ModalContainer onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <S.AskHeader>
-          <p>질문 상세</p>
+          <p className="font-title">질문 상세</p>
           <S.XLogo src={x} onClick={onClose} />
         </S.AskHeader>
 
@@ -37,10 +44,10 @@ function DetailModal({ id, onClose }) {
               <S.Category>{data.category}</S.Category>
 
               {/* 제목 */}
-              <S.AskContentContainer>
+              <S.AskTitleContainer>
                 <p className="title">질문 제목</p>
                 <div className="text-box">{data.title}</div>
-              </S.AskContentContainer>
+              </S.AskTitleContainer>
 
               {/* 내용 */}
               <S.AskContentContainer>

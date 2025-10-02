@@ -4,9 +4,10 @@ import styled from "styled-components";
 export const Overlay = styled.div`
     position: fixed;
     inset: 0;
+    z-index: 150;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
         position: fixed;
@@ -20,41 +21,52 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-    max-height: 80vh;  // 화면 높이 제한
-    overflow-y: auto;  // 세로 스크롤 가능
-    max-width: 90%;
+  position: relative;
+  z-index: 910;
+  width: 26rem;
+  max-height: calc(90dvh - 60px);
 
-    position: relative;
-    z-index: 910;
-    width: 33.25rem;
-    height: 30rem;
-    border-radius: 32px;
-    background-color: rgba(255, 255, 255, 0.2);
-    display: flex;
-    flex-direction: column;
+  border-radius: 32px;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
 
-    padding: 32px;
+  padding: 24px;
+  box-sizing: border-box;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 6px 3px rgba(255, 255, 255, 0.15);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 20.4375rem;
+    max-height: 27.3rem;
+    margin: 84px auto;
+    border-radius: 20px;
 
     box-sizing: border-box;
+    padding: 20px 20px 0 20px;
+  }
+`;
 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(100px);
-    -webkit-backdrop-filter: blur(100px);
+export const ModalScrollArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100%;
 
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 0 6px 3px rgba(255, 255, 255, 0.15);
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-        width: 20.4375rem;
-        max-height: 27.3rem;
-        margin: 104px auto; /*(top에서 188)*/
-        border-radius: 20px;
-        height: 25rem;
-
-        box-sizing: border-box;
-        padding: 20px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -62,8 +74,8 @@ export const AskHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32.4px;
-    font-size: 1.875rem;
+    margin-bottom: 22px;
+    font-size: 1.4rem;
     font-weight: 400;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -76,6 +88,8 @@ export const AskHeader = styled.div`
 `;
 export const XLogo = styled.img`
     cursor: pointer;
+    width: 36px;
+    height: 36px;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         width: 24px;
@@ -84,16 +98,15 @@ export const XLogo = styled.img`
 `;
 
 export const Category = styled.button`
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     color: #ffffffff;
     display: flex;
     position: relative;
-    width: 7.5rem;
-    height: 50px;
-    padding: 0.4375rem 0.75rem 0.4375rem 1rem;
+    width: 6.5rem;
+    height: 44px;
     justify-content: center;
     align-items: center;
-    gap: 0.375rem;
+    text-align: center;
     flex-shrink: 0;
     border-radius: 62.4375rem;
     border: 1px solid rgba(55, 255, 62, 0.5);
@@ -106,7 +119,7 @@ export const Category = styled.button`
         margin-bottom: 15px;
         display: flex;
         width: 5rem;
-        height: 30px;
+        height: 35px;
         gap: 0.125rem;
   }
 `;
@@ -117,56 +130,115 @@ export const AskContent = styled.div`
     align-items: flex-start;
 `;
 
-export const AskContentContainer = styled.div`
-    margin-bottom: 24px;
+export const AskTitleContainer = styled.div`
+  margin-bottom: 16px;
+
+  p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .text-box {
+    display: flex;           /* Flex 적용 */
+    align-items: center;
+    color: white;
+    width: 365px;
+
+    height: 44px;
+    border-radius: 14px;
+
+    box-sizing: border-box;
+    padding: 14px;
+
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    font-weight: 400;
+
+    overflow-x: auto;   /* 가로 스크롤 */
+    overflow-y: hidden; /* 세로 스크롤은 끔 */
+    white-space: nowrap; /* 줄바꿈 끄기 */
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: 15px;
 
     p {
-        margin-bottom: 16px;
-        font-size: 1.3rem;
-        font-weight: 500px;
+      margin-bottom: 10px;
+      font-size: 0.8125rem;
+      font-weight: 500px;
     }
+
     .text-box {
-        align-items: center;
-        width: 459.2px;
-        height: auto;
-        resize: none;
-        border-radius: 16px;
+      display: flex;
+      align-items: center;
+      width: 287px;
+      line-height: 35px;
+      height: 35px;
+      border-radius: 10px;
 
-        box-sizing: border-box;
-        padding: 7.2px 16px;
-
-        border: none;
-        outline: none;
-        background-color: rgba(255, 255, 255, 0.1);
-        font-size: 1.2rem;
-        font-weight: 400;
-        color: #fff;
+      box-sizing: border-box;
+      padding: 10px;
+      border: none;
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      font-weight: 400;
     }
+  }
+`;
+export const AskContentContainer = styled.div`
+  margin-bottom: 14px;
+
+  p {
+    margin-bottom: 11px;
+    font-size: 1.1rem;
+    font-weight: 500px;
+  }
+  .text-box {
+    color: white;
+    width: 365px;
+    min-width: 0;
+    height: 160px;
+    resize: none;
+    border-radius: 16px;
+
+    box-sizing: border-box;
+    padding: 10px;
+
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
+    font-weight: 400;
+    overflow-y: auto;         /* 세로 스크롤 활성화 */
+    word-break: break-word;   /* 긴 단어 줄바꿈 */
+  }
 
   //모바일
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-        margin-bottom: 10px;
-        p {
-            margin-bottom: 10px;
-            font-size: 0.8125rem;
-            font-weight: 500px;
-        }
-        .text-box {
-            width: 287px;
-            height: auto;
-            resize: none;
-            border-radius: 10px;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-bottom: 25px;
+    p {
+      margin-bottom: 10px;
+      font-size: 0.8125rem;
+      font-weight: 500px;
+    }
+    .text-box {
+      width: 287px;
+      height: 144px;
+      resize: none;
+      border-radius: 10px;
 
-            box-sizing: border-box;
-            padding: 9px 10px;
+      box-sizing: border-box;
+      padding: 9px 10px;
 
-            border: none;
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.1);
-            font-size: 0.75rem;
-            font-weight: 400;
-            color: #fff  
-        }
+      border: none;
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      font-weight: 400;
     }
   }
 `;
