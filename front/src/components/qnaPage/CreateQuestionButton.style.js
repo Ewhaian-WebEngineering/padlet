@@ -7,7 +7,7 @@ right: 13.7rem;
   display: flex;
   width: 4.375rem;
   height: 4.375rem;
-  z-index: 1000;
+  z-index: 10;
   justify-content: center;
   align-items: center;
   gap: 0.78125rem;

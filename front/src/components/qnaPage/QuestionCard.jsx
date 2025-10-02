@@ -7,6 +7,8 @@ import { useState } from "react";
 import { deleteQuestion } from "../../api/question.js";
 import useUserStore from "../../store/useUserStore.js";
 import { postLike, deleteLike } from "../../api/like.js";
+import EditAskModal from "../common/EditAskModal.jsx";
+
 
 export default function QuestionCard({
   id,
@@ -17,12 +19,14 @@ export default function QuestionCard({
   isLiked,
   onClick,
   onDeleted,
+  onUpdated,
   writerId,
 }) {
   const [hovered, setHovered] = useState(false);
   const {userId} = useUserStore();
   const [liked, setLiked] = useState(isLiked);
   const [likes, setLikes] = useState(likeCount || 0);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const handleLike = async (e) => {
     e.stopPropagation();
@@ -41,6 +45,7 @@ export default function QuestionCard({
     }
   };
   return (
+    <>
     <S.CardContainer>
       <S.ContentContainer>
         <S.PersonContainer>
@@ -81,13 +86,24 @@ export default function QuestionCard({
           }}>
             <img src={DeleteIcon} alt="delete button" />
           </S.UDBtn>
-          <S.UDBtn onClick={(e) => e.stopPropagation()}>
+          <S.UDBtn onClick={(e) => {
+            e.stopPropagation();
+            setShowEditModal(true);
+            }}
+            >
             <img src={EditIcon} alt="update button" />
           </S.UDBtn>
         </S.UDBtnContainer> )
         }
       </S.BtnContainer>
     </S.CardContainer>
-
+    { showEditModal && (
+      <EditAskModal
+        id={id}
+        onClose={() => setShowEditModal(false)}
+        onCreated={onUpdated}
+        />
+    )}
+    </>
   );
 }
