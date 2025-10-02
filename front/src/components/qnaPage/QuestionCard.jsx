@@ -5,7 +5,9 @@ import DeleteIcon from "../../assets/qnaPage/Trash.svg";
 import EditIcon from "../../assets/qnaPage/Edit.svg";
 import { useState } from "react";
 import { deleteQuestion } from "../../api/question.js";
+import useUserStore from "../../store/useUserStore.js";
 import { postLike, deleteLike } from "../../api/like.js";
+
 export default function QuestionCard({
   id,
   speakerName,
@@ -14,9 +16,11 @@ export default function QuestionCard({
   likeCount,
   isLiked,
   onClick,
-  onDeleted
+  onDeleted,
+  writerId,
 }) {
   const [hovered, setHovered] = useState(false);
+  const {userId} = useUserStore();
   const [liked, setLiked] = useState(isLiked);
   const [likes, setLikes] = useState(likeCount || 0);
 
@@ -36,7 +40,6 @@ export default function QuestionCard({
       alert("좋아요 처리 중 오류가 발생했습니다.");
     }
   };
-  
   return (
     <S.CardContainer>
       <S.ContentContainer>
@@ -62,7 +65,8 @@ export default function QuestionCard({
           </S.LikeBtn>
           <S.LikeCount>{likes}</S.LikeCount>
         </S.LikeContainer>
-        {/* zustand에서 userName === writerName으로 버튼 숨김 구현 */}
+        {
+          userId == writerId &&  (
         <S.UDBtnContainer>
           <S.UDBtn onClick={async(e) => {
             e.stopPropagation();
@@ -80,7 +84,8 @@ export default function QuestionCard({
           <S.UDBtn onClick={(e) => e.stopPropagation()}>
             <img src={EditIcon} alt="update button" />
           </S.UDBtn>
-        </S.UDBtnContainer>
+        </S.UDBtnContainer> )
+        }
       </S.BtnContainer>
     </S.CardContainer>
 
