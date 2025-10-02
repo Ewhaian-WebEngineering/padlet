@@ -4,9 +4,10 @@ import styled from "styled-components";
 export const Overlay = styled.div`
   position: fixed;
   inset: 0;
+  z-index: 150;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     position: fixed;
@@ -22,20 +23,24 @@ export const Overlay = styled.div`
 export const ModalContainer = styled.div`
   position: relative;
   z-index: 910;
-  width: 33.25rem;
-  height: 42.8rem;
+  width: 26rem;
+  max-height: calc(90dvh - 60px);
+
   border-radius: 32px;
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
 
-  padding: 32px;
-
+  padding: 24px;
   box-sizing: border-box;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(100px);
-  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
 
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -45,11 +50,23 @@ export const ModalContainer = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 20.4375rem;
     max-height: 27.3rem;
-    margin: 104px auto; /*(top에서 188)*/
+    margin: 84px auto; /*(top에서 188)*/
     border-radius: 20px;
 
     box-sizing: border-box;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
+  }
+`;
+
+export const ModalScrollArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100%;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 
@@ -57,8 +74,8 @@ export const AskHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32.4px;
-  font-size: 1.875rem;
+  margin-bottom: 22px;
+  font-size: 1.4rem;
   font-weight: 400;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -71,6 +88,8 @@ export const AskHeader = styled.div`
 `;
 export const XLogo = styled.img`
   cursor: pointer;
+  width: 36px;
+  height: 36px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 24px;
@@ -89,33 +108,35 @@ export const AskContent = styled.div`
 `;
 
 export const CategotyFilterStyle = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: 10px;
   }
 `;
 export const AskTitleContainer = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 
   p {
-    margin-bottom: 16px;
-    font-size: 1.3rem;
-    font-weight: 500px;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
   }
 
   input {
-    width: 459px;
-    height: 56px;
-    border-radius: 16px;
+    color: white;
+    width: 365px;
+
+    height: 44px;
+    border-radius: 14px;
 
     box-sizing: border-box;
-    padding-left: 16px;
+    padding-left: 14px;
 
     border: none;
     outline: none;
     background-color: rgba(255, 255, 255, 0.1);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 400;
 
     &::placeholder {
@@ -155,27 +176,30 @@ export const AskTitleContainer = styled.div`
   }
 `;
 export const AskContentContainer = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 
   p {
-    margin-bottom: 16px;
-    font-size: 1.3rem;
+    margin-bottom: 11px;
+    font-size: 1.1rem;
     font-weight: 500px;
   }
   textarea {
-    width: 459.2px;
-    height: 230.4px;
+    color: white;
+    width: 365px;
+    min-width: 0;
+    height: 160px;
     resize: none;
     border-radius: 16px;
 
     box-sizing: border-box;
-    padding-top: 14.4px;
-    padding-left: 16px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 
     border: none;
     outline: none;
     background-color: rgba(255, 255, 255, 0.1);
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
 
     &::placeholder {

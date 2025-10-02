@@ -4,18 +4,42 @@ import EmptyLikeIcon from "../../assets/qnaPage/EmptyLike.svg";
 import DeleteIcon from "../../assets/qnaPage/Trash.svg";
 import EditIcon from "../../assets/qnaPage/Edit.svg";
 import { useState } from "react";
+import { deleteQuestion } from "../../api/question.js";
+import useUserStore from "../../store/useUserStore.js";
+import { postLike, deleteLike } from "../../api/like.js";
 
 export default function QuestionCard({
-
+  id,
   speakerName,
   writerName,
   questionContent,
   likeCount,
   isLiked,
   onClick,
+  onDeleted,
+  writerId,
 }) {
   const [hovered, setHovered] = useState(false);
-  
+  const {userId} = useUserStore();
+  const [liked, setLiked] = useState(isLiked);
+  const [likes, setLikes] = useState(likeCount || 0);
+
+  const handleLike = async (e) => {
+    e.stopPropagation();
+    try {
+      if (liked) {
+        const res = await deleteLike(id);
+        setLiked(false);
+        setLikes(res.likes);
+      } else {
+        const res = await postLike(id);
+        setLiked(true);
+        setLikes(res.likes);
+      }
+    } catch (error) {
+      alert("좋아요 처리 중 오류가 발생했습니다.");
+    }
+  };
   return (
     <S.CardContainer>
       <S.ContentContainer>
@@ -32,25 +56,38 @@ export default function QuestionCard({
           <S.LikeBtn
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            onClick={(e) => e.stopPropagation()}
+            onClick={handleLike}
           >
             <img
               src={hovered || isLiked ? FillLikeIcon : EmptyLikeIcon}
               alt="like button"
             />
           </S.LikeBtn>
-          <S.LikeCount>{likeCount ? likeCount : "0"}</S.LikeCount>
+          <S.LikeCount>{likes}</S.LikeCount>
         </S.LikeContainer>
-        {/* zustand에서 userName === writerName으로 버튼 숨김 구현 */}
+        {
+          userId == writerId &&  (
         <S.UDBtnContainer>
-          <S.UDBtn onClick={(e) => { e.stopPropagation();  }}>
+          <S.UDBtn onClick={async(e) => {
+            e.stopPropagation();
+            try {
+              await deleteQuestion(id);   // 삭제 API 호출
+              if (onDeleted) {
+                onDeleted(id); // 부모 상태 업데이트
+              }
+            } catch (error) {
+              alert("질문 삭제에 실패했습니다.");
+            }
+          }}>
             <img src={DeleteIcon} alt="delete button" />
           </S.UDBtn>
           <S.UDBtn onClick={(e) => e.stopPropagation()}>
             <img src={EditIcon} alt="update button" />
           </S.UDBtn>
-        </S.UDBtnContainer>
+        </S.UDBtnContainer> )
+        }
       </S.BtnContainer>
     </S.CardContainer>
+
   );
 }
