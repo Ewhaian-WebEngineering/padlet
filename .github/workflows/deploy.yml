@@ -20,21 +20,13 @@ jobs:
       FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
 
     steps:
-      # 1️⃣ 레포 checkout (GH_PAT를 사용하여 private repo 접근)
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          repository: Ewhaian-WebEngineering/padlet
-          token: ${{ secrets.GH_PAT }}
-          fetch-depth: 0
-
-      # 2️⃣ Node.js 설치
+      # 1️⃣ Checkout repo (Actions 내에서는 필요 없음, EC2에서 SSH clone 사용)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # 3️⃣ EC2 배포
+      # 2️⃣ Deploy to EC2 via SSH
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -45,17 +37,19 @@ jobs:
           script: |
             APP_DIR="/home/ubuntu/app"
 
-            # 3-1️⃣ 앱 디렉토리 초기화
+            # 2-1️⃣ SSH host key 등록 (자동)
+            mkdir -p ~/.ssh
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+            # 2-2️⃣ 앱 디렉토리 초기화 후 SSH clone
             if [ -d "$APP_DIR" ]; then
               rm -rf $APP_DIR
             fi
             mkdir -p $APP_DIR
             cd $APP_DIR
+            git clone git@github.com:Ewhaian-WebEngineering/padlet.git $APP_DIR
 
-            # 3-2️⃣ 레포 clone
-            git clone https://github.com/Ewhaian-WebEngineering/padlet.git $APP_DIR
-
-            # 3-3️⃣ back/.env 생성
+            # 2-3️⃣ back/.env 생성
             mkdir -p $APP_DIR/back
             echo "PORT=${BACKEND_PORT}" > $APP_DIR/back/.env
             echo "FRONTEND_URL=${BACKEND_FRONTEND_URL}" >> $APP_DIR/back/.env
@@ -64,23 +58,22 @@ jobs:
             echo "KAKAO_REST_API_KEY=${BACKEND_KAKAO_REST_API_KEY}" >> $APP_DIR/back/.env
             echo "KAKAO_REDIRECT_URI=${BACKEND_KAKAO_REDIRECT_URI}" >> $APP_DIR/back/.env
 
-            # 3-4️⃣ back 설치 및 PM2 재시작
+            # 2-4️⃣ back 설치 및 PM2 재시작
             cd $APP_DIR/back
             npm install
             pm2 startOrRestart ecosystem.config.js --env production
 
-            # 3-5️⃣ front/.env 생성
+            # 2-5️⃣ front/.env 생성
             mkdir -p $APP_DIR/front
             echo "VITE_API_BASE_URL=${FRONTEND_API_BASE_URL}" > $APP_DIR/front/.env
             echo "VITE_PORT=${FRONTEND_PORT}" >> $APP_DIR/front/.env
 
-            # 3-6️⃣ front 설치 및 빌드
+            # 2-6️⃣ front 설치 및 빌드
             cd $APP_DIR/front
             npm install
             npm run build
 
-            # 3-7️⃣ Nginx 재시작
-            # repo 루트에 nginx.conf 위치 확인 후 경로 맞추기
+            # 2-7️⃣ Nginx 배포
             if [ -f "$APP_DIR/nginx.conf" ]; then
               sudo cp $APP_DIR/nginx.conf /etc/nginx/sites-available/default
               sudo systemctl restart nginx
