@@ -53,19 +53,12 @@ function IntroPage() {
           <S.Card className="square long-card">
             <S.CardTitle2 className="font-title">강연 시간표</S.CardTitle2>
             <S.CardList>
-              <S.CardItem>
-                <S.LogoDot src={logoDott} alt="logo" className="firstDot" />
-                <div className="text">
-                  <span className="time">18:30~18:40</span>
-                  <span className="title">오프닝</span>
-                </div>
-              </S.CardItem>
 
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" />
 
                 <div className="text">
-                  <span className="time">18:40~19:20</span>
+                  <span className="time">18:30~19:20</span>
                   <span className="title">첫 번째 강연</span>
                   <p className="speaker"> {eventInfo.speaker1}</p>
                 </div>
