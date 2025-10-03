@@ -63,7 +63,7 @@ function EditAskModal({ onClose, onCreated, id }) {
         setTitle(question.title || "");
         setContent(question.content || "");
         setselectedCategory(question.category || null);
-        setAnonymity(question.anonymity || false);
+        setAnonymity(question.anonymity||false);
       } catch (error) {
         console.error("질문 불러오기 실패", error);
       }
