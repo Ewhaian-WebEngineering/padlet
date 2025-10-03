@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BACKEND_ENV_PATH: "/home/ubuntu/app/back/.env"
-      FRONTEND_ENV_PATH: "/home/ubuntu/app/front/.env"
+      BACKEND_ENV_PATH: "/home/ubuntu/env/back.env"
+      FRONTEND_ENV_PATH: "/home/ubuntu/env/front.env"
 
     steps:
       - name: Set up Node.js
