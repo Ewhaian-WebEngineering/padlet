@@ -56,7 +56,7 @@ function IntroPage() {
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" className="firstDot" />
                 <div className="text">
-                  <span className="time">18:00~18:10</span>
+                  <span className="time">18:30~18:40</span>
                   <span className="title">오프닝</span>
                 </div>
               </S.CardItem>
@@ -65,7 +65,7 @@ function IntroPage() {
                 <S.LogoDot src={logoDott} alt="logo" />
 
                 <div className="text">
-                  <span className="time">18:00~18:10</span>
+                  <span className="time">18:40~19:20</span>
                   <span className="title">첫 번째 강연</span>
                   <p className="speaker"> {eventInfo.speaker1}</p>
                 </div>
@@ -74,10 +74,17 @@ function IntroPage() {
               <S.CardItem>
                 <S.LogoDot src={logoDott} alt="logo" />
                 <div className="text">
-                  <span className="time">18:50~19:20</span>
-
+                  <span className="time">19:40~20:40</span>
                   <span className="title">두 번째 강연</span>
                   <p className="speaker"> {eventInfo.speaker2}</p>
+                </div>
+              </S.CardItem>
+
+              <S.CardItem>
+                <S.LogoDot src={logoDott} alt="logo" />
+                <div className="text">
+                  <span className="time">20:40~21:00</span>
+                  <span className="title">행사 마무리</span>
                 </div>
               </S.CardItem>
             </S.CardList>
