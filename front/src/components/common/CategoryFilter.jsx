@@ -41,7 +41,7 @@ export default function CategoryFilter({
   return (
     <S.Container onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave} onClick={onToggle} ref={containerRef}>
-      <S.FilterTitle>{selectedCategory || "카테고리 필터"}</S.FilterTitle>
+      <S.FilterTitle>{selectedCategory || "전체"}</S.FilterTitle>
       <S.ArrowContainer>
         <S.Arrow src={arrow} alt="arrow" />
       </S.ArrowContainer>

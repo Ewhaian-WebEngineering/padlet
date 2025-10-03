@@ -21,6 +21,7 @@ export default function QuestionCard({
   onDeleted,
   onUpdated,
   writerId,
+  loadQuestions
 }) {
   const [hovered, setHovered] = useState(false);
   const {userId} = useUserStore();
@@ -40,6 +41,7 @@ export default function QuestionCard({
         setLiked(true);
         setLikes(res.likes);
       }
+       loadQuestions();
     } catch (error) {
       alert("좋아요 처리 중 오류가 발생했습니다.");
     }

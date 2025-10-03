@@ -132,6 +132,7 @@ export default function QnaPage() {
                     )
                   } //해당 id를 가진 질문이 삭제
                   onUpdated={handleCreated}
+                  loadQuestions={handleCreated}
                 />
               </div>
             ))
