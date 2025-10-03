@@ -80,9 +80,9 @@ jobs:
             fi
 
             # 5️⃣ Nginx 배포
-            if [ -f "$APP_DIR/nginx.conf" ]; then
-              sudo cp "$APP_DIR/nginx.conf" /etc/nginx/sites-available/default
-              sudo systemctl restart nginx
+            
+            sudo cp "home/ubuntu/nginx.conf" /etc/nginx/sites-available/default
+            sudo systemctl restart nginx
             else
               echo "nginx.conf 파일이 존재하지 않습니다. 경로 확인 필요"
             fi
