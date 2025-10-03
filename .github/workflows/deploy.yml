@@ -10,14 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
-      BACKEND_FRONTEND_URL: ${{ secrets.BACKEND_FRONTEND_URL }}
-      BACKEND_MONGO_URL: ${{ secrets.BACKEND_MONGO_URL }}
-      BACKEND_SESSION_SECRET: ${{ secrets.BACKEND_SESSION_SECRET }}
-      BACKEND_KAKAO_REST_API_KEY: ${{ secrets.BACKEND_KAKAO_REST_API_KEY }}
-      BACKEND_KAKAO_REDIRECT_URI: ${{ secrets.BACKEND_KAKAO_REDIRECT_URI }}
-      FRONTEND_API_BASE_URL: ${{ secrets.FRONTEND_API_BASE_URL }}
-      FRONTEND_PORT: ${{ secrets.FRONTEND_PORT }}
+      BACKEND_ENV_PATH: "/home/ubuntu/app/back/.env"
+      FRONTEND_ENV_PATH: "/home/ubuntu/app/front/.env"
 
     steps:
       - name: Set up Node.js
@@ -47,16 +41,7 @@ jobs:
             cd "$APP_DIR"
             git clone git@github.com:Ewhaian-WebEngineering/padlet.git "$APP_DIR"
 
-            # 1️⃣ back/.env 생성 (echo 방식)
-            mkdir -p "$APP_DIR/back"
-            echo "PORT=${BACKEND_PORT}" > "$APP_DIR/back/.env"
-            echo "FRONTEND_URL=${BACKEND_FRONTEND_URL}" >> "$APP_DIR/back/.env"
-            echo "MONGO_URL=${BACKEND_MONGO_URL}" >> "$APP_DIR/back/.env"
-            echo "SESSION_SECRET=${BACKEND_SESSION_SECRET}" >> "$APP_DIR/back/.env"
-            echo "KAKAO_REST_API_KEY=${BACKEND_KAKAO_REST_API_KEY}" >> "$APP_DIR/back/.env"
-            echo "KAKAO_REDIRECT_URI=${BACKEND_KAKAO_REDIRECT_URI}" >> "$APP_DIR/back/.env"
-
-            # 2️⃣ back 설치 및 PM2 재시작
+            # 1️⃣ back 설치 및 PM2 재시작
             cd "$APP_DIR/back"
             npm install
             if [ -f ecosystem.config.cjs ]; then
@@ -65,20 +50,22 @@ jobs:
               echo "ecosystem.config.cjs 파일이 없습니다. PM2 재시작 건너뜀."
             fi
 
-            # 3️⃣ front/.env 생성 (echo 방식)
-            mkdir -p "$APP_DIR/front"
-            echo "VITE_API_BASE_URL=${FRONTEND_API_BASE_URL}" > "$APP_DIR/front/.env"
-            echo "VITE_PORT=${FRONTEND_PORT}" >> "$APP_DIR/front/.env"
+            # 2️⃣ .env 복사 (백엔드)
+            if [ -f "${BACKEND_ENV_PATH}" ]; then
+              cp "${BACKEND_ENV_PATH}" "$APP_DIR/back/.env"
+            else
+              echo "백엔드 .env 파일이 존재하지 않습니다: ${BACKEND_ENV_PATH}"
+            fi
 
-            # 4️⃣ front 설치 및 빌드
+            # 3️⃣ front 설치 및 빌드
             cd "$APP_DIR/front"
             npm install
-            
-            npm run build || echo "Front build 실패: 경로 문제 또는 파일 누락 확인 필요"
-            
+            # 빌드 중 오류가 나도 배포 계속
+            npm run build || echo "Front build 중 오류 발생: 경로 문제 또는 파일 누락 확인 필요, 하지만 배포 계속 진행"
 
-            # 5️⃣ Nginx 배포
-            
-            sudo cp "home/ubuntu/nginx.conf" /etc/nginx/sites-available/default
-            sudo systemctl restart nginx
-          
+            # 4️⃣ .env 복사 (프론트)
+            if [ -f "${FRONTEND_ENV_PATH}" ]; then
+              cp "${FRONTEND_ENV_PATH}" "$APP_DIR/front/.env"
+            else
+              echo "프론트 .env 파일이 존재하지 않습니다: ${FRONTEND_ENV_PATH}"
+            fi
