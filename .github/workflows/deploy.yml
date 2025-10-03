@@ -50,7 +50,7 @@ jobs:
             fi
 
             # 2️⃣ 백엔드 .env 생성
-            mkdir -p $APP_DIR/backend
+            mkdir -p $APP_DIR/back
             echo "PORT=${BACKEND_PORT}" > $APP_DIR/back/.env
             echo "FRONTEND_URL=${BACKEND_FRONTEND_URL}" >> $APP_DIR/back/.env
             echo "MONGO_URL=${BACKEND_MONGO_URL}" >> $APP_DIR/back/.env
