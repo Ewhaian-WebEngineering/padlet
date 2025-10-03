@@ -56,7 +56,6 @@ function AskModal({ onClose, onCreated }) {
       if (response?.data?.success) {
         const created = response?.data?.question;
         onCreated(created);
-        alert("질문등록이 완료되었습니다! ");
         onClose();
       } else {
         alert("질문작성에 실패했습니다 :( ");
