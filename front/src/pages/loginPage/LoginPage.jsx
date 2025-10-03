@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./LoginPage.style";
 import Logo from "../../assets/common/logo.svg";
 import KakaoLogo from "../../assets/loginPage/KakaoLogo.svg";
-import ImageLeft from "../../assets/loginPage/imgLeft.svg";
-import ImageRight from "../../assets/loginPage/imgRight.svg";
+import ImageLeft from "../../assets/loginPage/ImgLeft.svg";
+import ImageRight from "../../assets/loginPage/ImgRight.svg";
 import { goKakaologinPage } from "../../api/auth";
 
 export default function LoginPage() {
