@@ -58,9 +58,7 @@ const requestAccessToken = async (code) => {
     return accessToken;
   } catch (error) {
     console.error(
-      "카카오 access token 발급 실패:",
-      error.response?.status,
-      error.response?.data || error.message
+      "카카오 access token 발급 실패:"
     );
     throw new Error(
       `카카오에서 access token 발급 실패: ${JSON.stringify(
@@ -73,7 +71,6 @@ const requestAccessToken = async (code) => {
 //access token을 통해 회원정보(username, email) 받기
 const getUserInfo = async (accessToken) => {
   try {
-    console.log("access token: ", accessToken);
 
     // data만 구조 분해
     const { data } = await axios.get("https://kapi.kakao.com/v2/user/me", {
@@ -94,9 +91,7 @@ const getUserInfo = async (accessToken) => {
   } catch (error) {
     // 에러 디테일 로깅
     console.error(
-      "getUserInfo failed:",
-      error.response?.status,
-      error.response?.data || error.message
+      "getUserInfo failed:"
     );
     // 헬퍼에서는 res 쓰지 말고 throw
     throw new Error("getUserInfo failed");
@@ -147,7 +142,6 @@ const getUserInfo = async (accessToken) => {
  */
 export const kakaoLogin = async (req, res) => {
   const code = req.query.code;
-  console.log("[kakao-login] code:", code);
   if (!code) {
     return res
       .status(400)
@@ -187,7 +181,7 @@ export const kakaoLogin = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("로그인 실패! ", error);
+    console.log("로그인 실패! ");
     return res.status(500).json({ message: "kakaoLogin에서 서버 오류 발생" });
   }
 };
@@ -216,7 +210,7 @@ export const kakaoLogin = async (req, res) => {
 export const logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.log("로그아웃 실패!", err);
+      console.log("로그아웃 실패!");
       return res.status(500).json({ message: "로그아웃 실패!" });
     }
     res.clearCookie("connect.sid"); // 선택사항: 세션 쿠키 삭제

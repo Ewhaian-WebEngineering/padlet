@@ -28,7 +28,7 @@ function IntroPage() {
 
         {/* 2. content */}
         <S.Content>
-          <div> 이화인들에게 귀감이 될 만한 연사들을 모시고,</div>
+          <div> 이화인들에게 귀감이 될 만한 연사들을 모시고,&nbsp;</div>
           <div>그들의 진솔한 경험과 생각을 나누는 강연회입니다.</div>
         </S.Content>
 

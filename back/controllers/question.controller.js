@@ -277,7 +277,7 @@ export const getQuestionDetail = async (req, res) => {
   try {
     const { id } = req.params;
     // category, title, content만 가져오기
-    const question = await Question.findById(id, "category title content");
+    const question = await Question.findById(id, "category title content anonymity");
     if (!question) {
       return res
         .status(404)
