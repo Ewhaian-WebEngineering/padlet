@@ -7,6 +7,7 @@ function DetailModal({ id, onClose }) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+    setData(null); 
     if(!id) {
       // 임시 디자인 확인용 데이터
       setData({
