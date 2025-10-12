@@ -9,8 +9,8 @@ export const fetchQuestionById=async(id)=>{
         if (q.content && typeof q.content === "string") {
         q.content = q.content.replace(/\\n/g, "\n");
         }
-        
-        return res.data.question;
+
+        return q;
     }catch(error){
         console.error("질문 불러오기 실패:", error);
         throw error;
