@@ -215,6 +215,7 @@ export const AskContentContainer = styled.div`
     font-weight: 400;
     overflow-y: auto;         /* 세로 스크롤 활성화 */
     word-break: break-word;   /* 긴 단어 줄바꿈 */
+    white-space: pre-wrap;       /* 줄바꿈(\n) + 자동 줄바꿈 둘 다 반영 */
   }
 
   //모바일
