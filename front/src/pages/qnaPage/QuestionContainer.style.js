@@ -3,6 +3,8 @@ import styled, { keyframes } from "styled-components";
 export const QuestionContainer = styled.div`
   display: grid;
   flex-shrink: 0;
+  place-content: center;
+  justify-items: center;
   justify-content: center;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
@@ -11,6 +13,15 @@ export const QuestionContainer = styled.div`
   margin-top: 2rem;
   margin-bottom: 2rem;
   gap: 1rem;
+  
+  /* 태블릿 (768 ~ 1023px) */
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) and (min-width: 768px) {
+  padding-left: 3rem;
+  padding-right: 3rem;  
+  grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
   /* 모바일에서는 2열 */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: 1rem;

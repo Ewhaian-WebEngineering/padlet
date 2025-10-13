@@ -9,6 +9,10 @@ export const Container = styled.div`
   background: var(--bg);
   display: flex;
   flex-shrink: 0;
+  /* 태블릿 (768 ~ 1023px) */
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) and (min-width: 768px) {
+
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     flex-direction: column;
     height: 5.9375rem;
@@ -25,6 +29,9 @@ overflow: visible;
   display: flex;
   align-items: center;
   justify-content: space-between;
+   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) and (min-width: 768px) {
+  width: 90%;
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 93%;
   }

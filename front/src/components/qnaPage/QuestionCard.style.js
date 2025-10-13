@@ -23,6 +23,12 @@ export const CardContainer = styled.div`
     background: rgba(255, 255, 255, 0.2);
   }
   
+  /* 태블릿 */
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) and (min-width: 768px) {
+    width: 16rem;
+    height: 16rem;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 9.5rem;
     height: 9.5rem;
