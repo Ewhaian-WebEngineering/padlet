@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ButtonContainer = styled.button`
-position: fixed;
-bottom: 3.44rem;
-right: 13.7rem;
+  position: fixed;
+  bottom: 3.44rem;
+  right: 13.7rem;
   display: flex;
   width: 4.375rem;
   height: 4.375rem;
@@ -21,13 +21,22 @@ right: 13.7rem;
     inset 0 -1px 0 rgba(255, 255, 255, 0.1),
     inset 0 0 6px 3px rgba(255, 255, 255, 0.15);
   background: rgba(16, 253, 24, 0.4);
+  /* 태블릿 */
+  @media (max-width: 1200px) {
+    right: 3rem;
+    bottom: 3rem;
+    right: 5rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 3.5rem;
     height: 3.5rem;
     bottom: 100px;
-    right: auto;     
-    left: 50%;           
-    transform: translateX(-50%); 
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
     gap: 0.625rem;
   }
 `;

@@ -29,6 +29,9 @@ export const LeftContainer = styled.div`
   display: flex;
   gap: 1.875rem;
   margin-left: 10rem;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) and (min-width: 768px) {
+  margin-left: 3.5rem;
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     width: 1.75rem;
     margin: 0;
@@ -63,6 +66,9 @@ export const UserContainer = styled.div`
   align-items: center;
   margin-right: 10rem;
   gap: 1.25rem;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) and (min-width: 768px) {
+  margin-right: 3.5rem;
+  }
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: 0.5rem;
     margin: 0;
