@@ -121,6 +121,9 @@ export const Card = styled.div`
     padding: 25px 0 25px;
     border-radius: 40px;
 
+    &.full {
+      height: 235px;
+    }
     &.long-card {
       height: 252px;
     }
@@ -259,10 +262,12 @@ export const CardList2 = styled.div`
   /* pc버전에서는 같은 선상*/
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: row;
-    justify-content: center;
+    // justify-content: center;
+    margin-left: 200px;
     align-items: flex-start;
-    gap: 5rem;
+    gap: 80px;
     margin-bottom: 74.47px;
+    text-align: left;
   }
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     gap: 19px;
@@ -367,6 +372,12 @@ export const CardItem2 = styled.div`
 
     color: #ccc;
     line-height: 1.35;
+    text-align: left;
+    text-wrap: balance;
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      white-space: pre-line;
+      word-break: keep-all;
+    }
   }
   .CardItems22 {
     display: flex;
@@ -408,6 +419,13 @@ export const CardItem2 = styled.div`
       margin: 4px 0 0 0;
       font-size: 0.75rem;
       font-weight: 400;
+
+      text-align: left;
+      text-wrap: balance;
+      @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        white-space: pre-line;
+        word-break: keep-all;
+      }
     }
   }
 `;
