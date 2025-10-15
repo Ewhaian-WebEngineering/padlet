@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: [FRONTEND_URL,"http://ewhadam-padlet.com","https://ewhadam-padlet.com"],
     credentials: true,
     optionsSuccessStatus: 200,
   })
