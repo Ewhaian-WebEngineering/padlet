@@ -52,6 +52,10 @@
 
 <img src="https://img.shields.io/badge/Node.js-5FA04E?style=flat-square&logo=Node.js&logoColor=white"/> <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=white" />
 
+## ✈️ 시스템 아키텍쳐
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/9e2a2576-a2ea-4eb1-a570-8d2edd3e1e71" />
+
+
 ## 💡How to Build / install
 
 * git으로 프로젝트 클론
